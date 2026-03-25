@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>信任鬼轉｜滿貫大亨謎因策略 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@600;700&display=swap');
+
+:root {
+  --gold: #F5C518;
+  --gold2: #E8A800;
+  --red: #D63031;
+  --dark: #0A0A0A;
+  --dark2: #111111;
+  --dark3: #1A1A1A;
+  --card: #1C1C1C;
+  --text: #F0EAD6;
+  --text-dim: #C0B89A;
+  --green: #00B894;
+  --blue: #0984E3;
+  --orange: #E17055;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%; height: 100%;
+  font-family: 'Noto Sans TC', sans-serif;
+  background: var(--dark);
+  color: var(--text);
+  overflow: hidden;
+}
+
+/* ── Slide Container ── */
+.slides-wrapper {
+  width: 100%; height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+.slides-wrapper::-webkit-scrollbar { display: none; }
+
+/* ── Each Slide ── */
+.slide {
+  width: 100%;
+  height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Nav ── */
+.nav {
+  position: fixed;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 100;
+}
+.nav-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+}
+.nav-dot.active { background: var(--gold); transform: scale(1.4); }
+
+/* ── Slide counter ── */
+.slide-counter {
+  position: fixed;
+  bottom: 28px;
+  right: 40px;
+  font-size: 13px;
+  color: var(--text-dim);
+  letter-spacing: 2px;
+  z-index: 100;
+  font-family: 'Oswald', sans-serif;
+}
+
+/* ── Keyboard hint ── */
+.key-hint {
+  position: fixed;
+  bottom: 28px;
+  left: 40px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 1px;
+  z-index: 100;
+}
+
+/* ══════════════════════
+   SLIDE 1 — TITLE
+══════════════════════ */
+#slide-1 {
+  background: var(--dark);
+  text-align: center;
+}
+#slide-1::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(245,197,24,0.15) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 80% 80%, rgba(214,48,49,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.s1-badge {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--gold2), var(--gold));
+  color: #000;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  padding: 6px 20px;
+  border-radius: 2px;
+  margin-bottom: 32px;
+  text-transform: uppercase;
+}
+.s1-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(56px, 8vw, 100px);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--gold);
+  text-shadow: 0 0 60px rgba(245,197,24,0.25);
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+}
+.s1-title span { color: var(--text); }
+.s1-sub {
+  font-size: clamp(16px, 2vw, 22px);
+  color: var(--text-dim);
+  letter-spacing: 6px;
+  margin-bottom: 48px;
+}
+.s1-slogan {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.s1-pill {
+  border: 1px solid rgba(245,197,24,0.4);
+  color: var(--gold);
+  padding: 10px 24px;
+  border-radius: 100px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  background: rgba(245,197,24,0.06);
+}
+.s1-pill.main {
+  background: var(--gold);
+  color: #000;
+  border-color: var(--gold);
+  font-size: 20px;
+}
+.s1-proof {
+  margin-top: 40px;
+  background: rgba(0,184,148,0.08);
+  border: 1px solid rgba(0,184,148,0.25);
+  border-radius: 10px;
+  padding: 14px 28px;
+  font-size: 15px;
+  color: var(--green);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ══════════════════════
+   SLIDE 2 — 核心概念
+══════════════════════ */
+#slide-2 {
+  background: #0A0800;
+  align-items: flex-start;
+}
+#slide-2::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 50% 60% at 100% 50%, rgba(245,197,24,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.s-section-tag {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.s-heading {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+.s-desc {
+  font-size: clamp(16px, 1.8vw, 20px);
+  color: var(--text-dim);
+  line-height: 1.7;
+  max-width: 640px;
+  margin-bottom: 48px;
+}
+
+.concept-flow {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+  width: 100%;
+}
+.cf-box {
+  flex: 1;
+  min-width: 160px;
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 24px 20px;
+  text-align: center;
+}
+.cf-box.highlight {
+  background: linear-gradient(135deg, #1a1000, #2a1800);
+  border-color: rgba(245,197,24,0.35);
+}
+.cf-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.cf-label {
+  font-size: clamp(16px, 1.8vw, 20px);
+  font-weight: 700;
+  color: var(--text);
+}
+.cf-label.gold { color: var(--gold); font-size: clamp(18px, 2vw, 24px); }
+.cf-arrow {
+  font-size: 28px;
+  color: rgba(255,255,255,0.45);
+  flex-shrink: 0;
+}
+
+.concept-rule {
+  background: rgba(245,197,24,0.05);
+  border: 1px solid rgba(245,197,24,0.2);
+  border-left: 4px solid var(--gold);
+  border-radius: 0 10px 10px 0;
+  padding: 20px 28px;
+  font-size: clamp(15px, 1.6vw, 18px);
+  color: var(--text);
+  line-height: 1.7;
+  max-width: 800px;
+}
+.concept-rule strong { color: var(--gold); }
+
+/* ══════════════════════
+   SLIDE 3 — 為什麼是這個梗
+══════════════════════ */
+#slide-3 {
+  background: var(--dark2);
+  align-items: flex-start;
+}
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+  margin-top: 8px;
+}
+.why-item {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 24px 28px;
+  border: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  transition: border-color 0.2s;
+}
+.why-item:hover { border-color: rgba(245,197,24,0.25); }
+.why-num {
+  font-family: 'Oswald', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: rgba(245,197,24,0.2);
+  line-height: 1;
+  min-width: 40px;
+}
+.why-content {}
+.why-title {
+  font-size: clamp(15px, 1.5vw, 18px);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.why-body {
+  font-size: clamp(13px, 1.2vw, 15px);
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+.why-proof-tag {
+  display: inline-block;
+  margin-top: 8px;
+  background: rgba(0,184,148,0.1);
+  border: 1px solid rgba(0,184,148,0.3);
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+}
+.vs-bar {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 20px 28px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+.vs-item { flex: 1; text-align: center; }
+.vs-label { font-size: 12px; color: var(--text-dim); letter-spacing: 2px; margin-bottom: 6px; text-transform: uppercase; }
+.vs-value { font-size: clamp(16px, 1.6vw, 19px); font-weight: 700; }
+.vs-divider { font-family: 'Oswald', sans-serif; font-size: 28px; color: rgba(255,255,255,0.4); }
+
+/* ══════════════════════
+   SLIDE 4 — 情境類型
+══════════════════════ */
+#slide-4 {
+  background: #080A12;
+  align-items: flex-start;
+}
+.scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: 100%;
+  margin-top: 8px;
+}
+.sc-card {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 28px 24px;
+  border: 1px solid rgba(255,255,255,0.05);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+.sc-card:hover { transform: translateY(-3px); }
+.sc-card.top { border-color: rgba(245,197,24,0.25); background: #1a1500; }
+.sc-emoji { font-size: 36px; margin-bottom: 14px; display: block; }
+.sc-name { font-size: clamp(18px, 1.8vw, 22px); font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.sc-sub { font-size: clamp(13px, 1.2vw, 15px); color: var(--text-dim); margin-bottom: 14px; line-height: 1.5; }
+.sc-power { display: flex; gap: 5px; }
+.sc-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.1); }
+.sc-dot.on { background: var(--gold); }
+.sc-badge {
+  position: absolute;
+  top: 16px; right: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+}
+.sc-badge.best { background: var(--gold); color: #000; }
+.sc-example {
+  margin-top: 12px;
+  background: rgba(255,255,255,0.04);
+  border-left: 2px solid rgba(245,197,24,0.4);
+  padding: 8px 12px;
+  border-radius: 0 6px 6px 0;
+  font-size: 13px;
+  color: rgba(240,234,214,0.85);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* ══════════════════════
+   SLIDE 5 — 5步驟公式
+══════════════════════ */
+#slide-5 {
+  background: #080808;
+  align-items: flex-start;
+}
+.formula-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  width: 100%;
+  margin-top: 8px;
+  align-items: start;
+}
+.formula-steps { display: flex; flex-direction: column; gap: 0; }
+.f-step {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  position: relative;
+}
+.f-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 19px;
+  top: 44px;
+  width: 2px;
+  height: calc(100% - 4px);
+  background: rgba(255,255,255,0.06);
+}
+.f-step-left { display: flex; flex-direction: column; align-items: center; gap: 0; z-index: 1; }
+.f-num {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 2px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Oswald', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+.f-num.active { background: var(--gold); border-color: var(--gold); color: #000; }
+.f-num.boom { background: var(--red); border-color: var(--red); color: #fff; font-size: 20px; }
+.f-body { padding-bottom: 28px; flex: 1; }
+.f-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.f-time { font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 6px; }
+.f-main { font-size: clamp(15px, 1.5vw, 18px); font-weight: 700; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+.f-quote {
+  background: rgba(255,255,255,0.04);
+  border-left: 2px solid rgba(255,255,255,0.1);
+  padding: 8px 12px;
+  border-radius: 0 6px 6px 0;
+  font-size: clamp(12px, 1.1vw, 14px);
+  color: var(--text-dim);
+  font-style: italic;
+  line-height: 1.5;
+}
+.f-quote.gold {
+  border-left-color: var(--gold);
+  background: rgba(245,197,24,0.06);
+  color: var(--gold);
+  font-style: normal;
+  font-weight: 700;
+  font-size: clamp(14px, 1.4vw, 17px);
+}
+.formula-right { display: flex; flex-direction: column; gap: 16px; }
+.fr-box {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 24px 24px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.fr-title { font-size: 13px; font-weight: 700; letter-spacing: 2px; color: var(--gold); margin-bottom: 14px; text-transform: uppercase; }
+.fr-rule {
+  font-size: clamp(14px, 1.4vw, 16px);
+  color: var(--text);
+  line-height: 1.7;
+}
+.fr-rule strong { color: var(--gold); }
+.fr-key {
+  background: rgba(245,197,24,0.06);
+  border: 1px solid rgba(245,197,24,0.2);
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-top: 4px;
+}
+.fr-key-title { font-size: 14px; font-weight: 900; color: var(--gold); margin-bottom: 8px; }
+.fr-key-body { font-size: clamp(13px, 1.2vw, 15px); color: rgba(240,234,214,0.92); line-height: 1.6; }
+
+/* ══════════════════════
+   SLIDE 6 — 內容分流 + KOL
+══════════════════════ */
+#slide-6 {
+  background: #060A0A;
+  align-items: flex-start;
+}
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  width: 100%;
+  margin-top: 8px;
+}
+.col-section-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding-bottom: 10px;
+}
+.ct-item {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 20px 22px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.ct-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.ct-name { font-size: clamp(16px, 1.5vw, 19px); font-weight: 700; color: var(--text); }
+.ct-time {
+  font-size: 12px;
+  background: rgba(255,255,255,0.08);
+  padding: 4px 10px;
+  border-radius: 4px;
+  color: var(--text-dim);
+  font-family: 'Oswald', sans-serif;
+}
+.ct-purpose { font-size: clamp(13px, 1.2vw, 15px); color: var(--text-dim); margin-bottom: 10px; line-height: 1.5; }
+.ct-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.ct-tag {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.05);
+  color: rgba(240,234,214,0.8);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.ct-item.featured { background: #101a14; border-color: rgba(245,197,24,0.2); }
+.ct-tag.gold { background: rgba(245,197,24,0.1); color: var(--gold); border-color: rgba(245,197,24,0.3); }
+
+.kol-item {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.kol-icon { font-size: 28px; min-width: 36px; }
+.kol-info { flex: 1; }
+.kol-title { font-size: clamp(15px, 1.4vw, 18px); font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.kol-desc { font-size: clamp(12px, 1.1vw, 14px); color: var(--text-dim); line-height: 1.5; }
+.kol-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  align-self: flex-start;
+}
+.badge-seed { background: rgba(0,184,148,0.15); color: var(--green); }
+.badge-spread { background: rgba(9,132,227,0.15); color: var(--blue); }
+.badge-boom { background: rgba(245,197,24,0.15); color: var(--gold); }
+
+/* ══════════════════════
+   SLIDE 7 — 平台策略
+══════════════════════ */
+#slide-7 {
+  background: #060810;
+  align-items: flex-start;
+}
+.platform-seq {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 32px;
+}
+.pf-node {
+  flex: 1;
+  background: var(--card);
+  padding: 28px 24px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+}
+.pf-node:first-child { border-radius: 14px 0 0 14px; }
+.pf-node:last-child { border-radius: 0 14px 14px 0; }
+.pf-node.first { background: #0a1a0a; border-color: rgba(0,184,148,0.3); }
+.pf-arrow {
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.45);
+  font-size: 22px;
+  background: var(--dark3);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  flex-shrink: 0;
+}
+.pf-step-num {
+  font-family: 'Oswald', sans-serif;
+  font-size: 13px;
+  color: var(--text-dim);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.pf-name { font-size: clamp(18px, 2vw, 24px); font-weight: 900; color: var(--text); margin-bottom: 6px; }
+.pf-name.green { color: var(--green); }
+.pf-role { font-size: clamp(12px, 1.2vw, 14px); color: var(--text-dim); line-height: 1.5; }
+
+.timing-section { width: 100%; }
+.timing-title { font-size: 13px; font-weight: 700; letter-spacing: 2px; color: var(--gold); margin-bottom: 16px; text-transform: uppercase; }
+.timing-flow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card);
+  border-radius: 12px;
+  padding: 20px 28px;
+  border: 1px solid rgba(255,255,255,0.06);
+  flex-wrap: wrap;
+}
+.tf-item { flex: 1; min-width: 150px; text-align: center; }
+.tf-phase { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--text-dim); margin-bottom: 6px; text-transform: uppercase; }
+.tf-action { font-size: clamp(14px, 1.3vw, 16px); font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.tf-desc { font-size: clamp(12px, 1.1vw, 13px); color: var(--text-dim); line-height: 1.5; }
+.tf-arrow { color: rgba(255,255,255,0.45); font-size: 24px; flex-shrink: 0; }
+
+.timing-warn {
+  margin-top: 16px;
+  background: rgba(214,48,49,0.06);
+  border: 1px solid rgba(214,48,49,0.2);
+  border-radius: 10px;
+  padding: 16px 22px;
+  font-size: clamp(14px, 1.3vw, 16px);
+  color: rgba(240,234,214,0.95);
+  line-height: 1.6;
+}
+.timing-warn strong { color: #ff7675; }
+
+/* ══════════════════════
+   SLIDE 8 — 避雷區
+══════════════════════ */
+#slide-8 {
+  background: #0A0404;
+  align-items: flex-start;
+}
+.danger-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  width: 100%;
+  margin-top: 8px;
+}
+.dg-item {
+  background: #140808;
+  border-radius: 12px;
+  padding: 22px 24px;
+  border: 1px solid rgba(214,48,49,0.12);
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.dg-x {
+  width: 32px; height: 32px;
+  min-width: 32px;
+  border-radius: 50%;
+  background: rgba(214,48,49,0.15);
+  border: 1px solid rgba(214,48,49,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 900;
+  color: #ff7675;
+}
+.dg-body {}
+.dg-title { font-size: clamp(15px, 1.4vw, 17px); font-weight: 700; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+.dg-desc { font-size: clamp(12px, 1.2vw, 14px); color: var(--text-dim); line-height: 1.6; }
+.dg-desc strong { color: rgba(240,234,214,0.95); }
+
+/* ══════════════════════
+   SLIDE 9 — UGC擴散
+══════════════════════ */
+#slide-9 {
+  background: #07060A;
+  align-items: flex-start;
+}
+.ugc-4col {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 24px;
+}
+.ugc-card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 24px 20px;
+  border: 1px solid rgba(255,255,255,0.05);
+  text-align: center;
+}
+.ugc-icon { font-size: 36px; margin-bottom: 14px; display: block; }
+.ugc-title { font-size: clamp(15px, 1.4vw, 17px); font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.ugc-body { font-size: clamp(12px, 1.1vw, 14px); color: var(--text-dim); line-height: 1.6; }
+
+.ugc-guide {
+  width: 100%;
+  background: var(--card);
+  border-radius: 14px;
+  padding: 28px 32px;
+  border: 1px solid rgba(230,114,85,0.15);
+}
+.ugc-guide-title { font-size: 13px; font-weight: 700; letter-spacing: 2px; color: var(--orange); margin-bottom: 20px; text-transform: uppercase; }
+.ugc-guide-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.ugg-item {}
+.ugg-label { font-size: clamp(15px, 1.4vw, 17px); font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.ugg-desc { font-size: clamp(13px, 1.2vw, 15px); color: var(--text-dim); line-height: 1.6; }
+.ugg-example {
+  margin-top: 8px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: rgba(240,234,214,0.5);
+  font-style: italic;
+}
+
+/* ══════════════════════
+   SLIDE 10 — 總結
+══════════════════════ */
+#slide-10 {
+  background: var(--dark);
+  text-align: center;
+  justify-content: center;
+}
+#slide-10::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 100%, rgba(245,197,24,0.1) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 20% 20%, rgba(214,48,49,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.s10-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 900px;
+  margin: 32px auto;
+}
+.s10-box {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 28px 22px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.s10-icon { font-size: 32px; margin-bottom: 12px; }
+.s10-label { font-size: 12px; font-weight: 700; letter-spacing: 2px; color: var(--text-dim); margin-bottom: 8px; text-transform: uppercase; }
+.s10-value { font-size: clamp(15px, 1.5vw, 18px); font-weight: 700; color: var(--text); line-height: 1.5; }
+.s10-final {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(20px, 3vw, 36px);
+  color: var(--gold);
+  letter-spacing: 4px;
+  margin-top: 8px;
+}
+</style>
+</head>
+<body>
+
+<!-- Nav Dots -->
+<nav class="nav" id="nav"></nav>
+<div class="slide-counter" id="counter">1 / 10</div>
+<div class="key-hint">↑ ↓ 鍵盤導航 · 滑鼠滾輪</div>
+
+<div class="slides-wrapper" id="wrapper">
+
+  <!-- ══ SLIDE 1 ══ -->
+  <section class="slide" id="slide-1">
+    <div class="s1-badge">滿貫大亨 · 謎因策略 · 2026</div>
+    <h1 class="s1-title">信任鬼轉<span>｜</span>謎因擴散藍圖</h1>
+    <p class="s1-sub">重新啟動品牌最強記憶點</p>
+    <div class="s1-slogan">
+      <div class="s1-pill">信任</div>
+      <div class="s1-pill">公平</div>
+      <div class="s1-pill">大獎開不停</div>
+      <div class="s1-pill main">滿貫大亨</div>
+    </div>
+    <div class="s1-proof">
+      ✅ &nbsp;民間自發佐證：Threads 爆文 &nbsp;<strong>62萬瀏覽</strong>&nbsp;·&nbsp;<strong>4.1萬讚</strong>&nbsp;·&nbsp;<strong>2,371次轉發</strong>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 2 ══ -->
+  <section class="slide" id="slide-2">
+    <div style="width:100%;">
+      <div class="s-section-tag">02 · 核心概念</div>
+      <h2 class="s-heading">情緒斷點反轉</h2>
+      <p class="s-desc">前面越認真，後面越好笑。把品牌 Slogan 變成「世界真理」，讓它在最不該出現的地方突然出現。</p>
+    </div>
+    <div class="concept-flow">
+      <div class="cf-box">
+        <div class="cf-num">Step 01</div>
+        <div class="cf-label">正經情境</div>
+      </div>
+      <div class="cf-arrow">→</div>
+      <div class="cf-box">
+        <div class="cf-num">Step 02</div>
+        <div class="cf-label">情緒堆疊至<br>「信任」</div>
+      </div>
+      <div class="cf-arrow">→</div>
+      <div class="cf-box highlight">
+        <div class="cf-num">Step 03</div>
+        <div class="cf-label gold">信任 公平<br>大獎開不停<br>滿貫大亨</div>
+      </div>
+    </div>
+    <div class="concept-rule">
+      💡 核心規則只有一條：<strong>「信任」出現的那個瞬間，觀眾必須是認真的</strong>——然後品牌語句一口氣把它砸碎。<br>
+      情緒落差越大，笑點越強，傳播越遠。
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 3 ══ -->
+  <section class="slide" id="slide-3">
+    <div style="width:100%;">
+      <div class="s-section-tag">03 · 獨有優勢</div>
+      <h2 class="s-heading">滿貫大亨的獨有優勢</h2>
+    </div>
+    <div class="vs-bar">
+      <div class="vs-item">
+        <div class="vs-label">現有 Slogan</div>
+        <div class="vs-value" style="color:var(--text-dim);">逆轉人生 滿貫大亨</div>
+      </div>
+      <div class="vs-divider">VS</div>
+      <div class="vs-item">
+        <div class="vs-label">舊 Slogan（目標）</div>
+        <div class="vs-value" style="color:var(--gold);">信任 公平 大獎開不停</div>
+      </div>
+    </div>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-num">01</div>
+        <div class="why-content">
+          <div class="why-title">舊 Slogan 已有自發民間記憶</div>
+          <div class="why-body">不需從零建立認知，用戶已記住這句話。2026 年仍有人主動引用。</div>
+          <span class="why-proof-tag">📱 Threads 62萬瀏覽實證</span>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">02</div>
+        <div class="why-content">
+          <div class="why-title">節奏天生適合對話嵌入</div>
+          <div class="why-body">「信任 公平 大獎開不停」有強烈節奏感，任何情緒高點都能強行接上，產生荒謬喜感。</div>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">03</div>
+        <div class="why-content">
+          <div class="why-title">傳播即曝光，不需解釋品牌</div>
+          <div class="why-body">梗本身帶著「滿貫大亨」四字，每次傳播都是天然品牌曝光，無需額外說明。</div>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">04</div>
+        <div class="why-content">
+          <div class="why-title">「逆轉人生」不具獨特性</div>
+          <div class="why-body">通用詞彙，任何品牌都能用。舊 Slogan 無可取代，有十年歷史感加持，記憶更深。</div>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">05</div>
+        <div class="why-content">
+          <div class="why-title">UGC 門檻極低</div>
+          <div class="why-body">只需截圖＋文字即可參與，不需拍影片或 AI 生成。任何人在任何情境都能二創。</div>
+        </div>
+      </div>
+      <div class="why-item" style="background: rgba(245,197,24,0.04); border-color: rgba(245,197,24,0.15);">
+        <div class="why-num" style="color: rgba(245,197,24,0.5);">06</div>
+        <div class="why-content">
+          <div class="why-title">雪山救狐狸效應加持</div>
+          <div class="why-body">2026年台灣謎因文化成熟，「固定句型＋荒謬反轉」已被大眾接受，時機最佳。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 4 — 公式拆解對比 ══ -->
+  <section class="slide" id="slide-4" style="background:#07090F; align-items:flex-start;">
+    <div style="width:100%;">
+      <div class="s-section-tag">04 · 公式拆解對比</div>
+      <h2 class="s-heading">雪山救狐 vs 滿貫迷因</h2>
+      <p class="s-desc" style="margin-bottom:24px;">相同的「五步驟反轉結構」，但核心驅動力完全不同</p>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px; width:100%;">
+
+      <!-- 雪山 -->
+      <div style="background:#0d1020; border:1px solid rgba(100,149,237,0.2); border-radius:14px; padding:28px 28px 20px;">
+        <div style="font-size:13px; font-weight:700; letter-spacing:3px; color:#7BAAF7; margin-bottom:20px; text-transform:uppercase;">🏔️ 雪山救狐狸公式</div>
+        <div style="font-size:12px; color:var(--text-dim); margin-bottom:16px;">核心驅動力：<strong style="color:#7BAAF7;">身分揭露</strong>反轉</div>
+
+        <div style="display:flex; flex-direction:column; gap:0;">
+          <!-- step -->
+          <div style="display:flex; gap:14px; align-items:flex-start; position:relative;">
+            <div style="display:flex; flex-direction:column; align-items:center; z-index:1;">
+              <div style="width:32px; height:32px; border-radius:50%; background:#7BAAF7; color:#000; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:13px; flex-shrink:0;">①</div>
+              <div style="width:2px; flex:1; background:rgba(123,170,247,0.15); min-height:14px;"></div>
+            </div>
+            <div style="padding-bottom:16px; flex:1;">
+              <div style="font-size:13px; font-weight:700; color:#7BAAF7; margin-bottom:3px;">熟悉故事起點</div>
+              <div style="font-size:13px; color:var(--text); margin-bottom:3px;">降低理解成本</div>
+              <div style="font-size:12px; color:var(--text-dim); font-style:italic;">「你是否曾在雪山救過一隻狐狸？」</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div style="display:flex; flex-direction:column; align-items:center; z-index:1;">
+              <div style="width:32px; height:32px; border-radius:50%; background:#7BAAF7; color:#000; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:13px; flex-shrink:0;">②</div>
+              <div style="width:2px; flex:1; background:rgba(123,170,247,0.15); min-height:14px;"></div>
+            </div>
+            <div style="padding-bottom:16px; flex:1;">
+              <div style="font-size:13px; font-weight:700; color:#7BAAF7; margin-bottom:3px;">建立預期</div>
+              <div style="font-size:13px; color:var(--text); margin-bottom:3px;">報恩套路，觀眾自動腦補結局</div>
+              <div style="font-size:12px; color:var(--text-dim); font-style:italic;">狐狸會回來報恩→浪漫橋段</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div style="display:flex; flex-direction:column; align-items:center; z-index:1;">
+              <div style="width:32px; height:32px; border-radius:50%; background:#7BAAF7; color:#000; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:13px; flex-shrink:0;">③</div>
+              <div style="width:2px; flex:1; background:rgba(123,170,247,0.15); min-height:14px;"></div>
+            </div>
+            <div style="padding-bottom:16px; flex:1;">
+              <div style="font-size:13px; font-weight:700; color:#7BAAF7; margin-bottom:3px;">固定轉折點</div>
+              <div style="font-size:13px; color:var(--text); margin-bottom:3px;">多年後重逢</div>
+              <div style="font-size:12px; color:var(--text-dim); font-style:italic;">「你還記得那一天嗎？」</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div style="display:flex; flex-direction:column; align-items:center; z-index:1;">
+              <div style="width:32px; height:32px; border-radius:50%; background:#7BAAF7; color:#000; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:13px; flex-shrink:0;">④</div>
+              <div style="width:2px; flex:1; background:rgba(123,170,247,0.15); min-height:14px;"></div>
+            </div>
+            <div style="padding-bottom:16px; flex:1;">
+              <div style="font-size:13px; font-weight:700; color:#7BAAF7; margin-bottom:3px;">身分揭露（關鍵模板）</div>
+              <div style="font-size:13px; color:var(--text); margin-bottom:3px;">填空式，可無限替換</div>
+              <div style="font-size:12px; color:var(--text-dim); font-style:italic;">「我是當時的＿＿」</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div style="display:flex; flex-direction:column; align-items:center; z-index:1;">
+              <div style="width:32px; height:32px; border-radius:50%; background:#7BAAF7; color:#000; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:13px; flex-shrink:0;">⑤</div>
+            </div>
+            <div style="padding-bottom:4px; flex:1;">
+              <div style="font-size:13px; font-weight:700; color:#7BAAF7; margin-bottom:3px;">荒謬反轉（核心笑點）</div>
+              <div style="font-size:13px; color:var(--text); margin-bottom:3px;">不一定是狐狸</div>
+              <div style="font-size:12px; color:var(--text-dim); font-style:italic;">可能是雞、鴨、醬板鴨、路人</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:16px; background:rgba(123,170,247,0.08); border-radius:8px; padding:12px 14px; border:1px solid rgba(123,170,247,0.2);">
+          <div style="font-size:12px; color:#7BAAF7; font-weight:700; margin-bottom:4px;">擴散模式</div>
+          <div style="font-size:13px; color:var(--text-dim);">敘事型反轉 · 需要拍影片 · 依賴 AI 生成視覺 · 門檻較高</div>
+        </div>
+      </div>
+
+      <!-- 滿貫 -->
+      <div style="background:#120d00; border:1px solid rgba(245,197,24,0.25); border-radius:14px; padding:28px 28px 20px;">
+        <div style="font-size:13px; font-weight:700; letter-spacing:3px; color:var(--gold); margin-bottom:20px; text-transform:uppercase;">🎰 滿貫迷因公式</div>
+        <div style="font-size:12px; color:var(--text-dim); margin-bottom:16px;">核心驅動力：<strong style="color:var(--gold);">語境斷點</strong>反轉</div>
+
+        <div style="display:flex; flex-direction:column; gap:0;">
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div style="display:flex; flex-direction:column; align-items:center; z-index:1;">
+              <div style="width:32px; height:32px; border-radius:50%; background:var(--gold); color:#000; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:13px; flex-shrink:0;">①</div>
+              <div style="width:2px; flex:1; background:rgba(245,197,24,0.15); min-height:14px;"></div>
+            </div>
+            <div style="padding-bottom:16px; flex:1;">
+              <div style="font-size:13px; font-weight:700; color:var(--gold); margin-bottom:3px;">熟悉情境</div>
+              <div style="font-size:13px; color:var(--text); margin-bottom:3px;">生活共鳴，觀眾有代入感</div>
+              <div style="font-size:12px; color:var(--text-dim); font-style:italic;">愛情 / 職場 / 人生對話</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div style="display:flex; flex-direction:column; align-items:center; z-index:1;">
+              <div style="width:32px; height:32px; border-radius:50%; background:var(--gold); color:#000; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:13px; flex-shrink:0;">②</div>
+              <div style="width:2px; flex:1; background:rgba(245,197,24,0.15); min-height:14px;"></div>
+            </div>
+            <div style="padding-bottom:16px; flex:1;">
+              <div style="font-size:13px; font-weight:700; color:var(--gold); margin-bottom:3px;">情緒堆疊</div>
+              <div style="font-size:13px; color:var(--text); margin-bottom:3px;">建立信任主題，拉高情緒</div>
+              <div style="font-size:12px; color:var(--text-dim); font-style:italic;">上升到「信任」層級，觀眾開始認真</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div style="display:flex; flex-direction:column; align-items:center; z-index:1;">
+              <div style="width:32px; height:32px; border-radius:50%; background:var(--gold); color:#000; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:13px; flex-shrink:0;">③</div>
+              <div style="width:2px; flex:1; background:rgba(245,197,24,0.15); min-height:14px;"></div>
+            </div>
+            <div style="padding-bottom:16px; flex:1;">
+              <div style="font-size:13px; font-weight:700; color:var(--gold); margin-bottom:3px;">假結論</div>
+              <div style="font-size:13px; color:var(--text); margin-bottom:3px;">觀眾預期即將收到答案</div>
+              <div style="font-size:12px; color:var(--text-dim); font-style:italic;">分手 / 金句 / 人生教訓</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div style="display:flex; flex-direction:column; align-items:center; z-index:1;">
+              <div style="width:32px; height:32px; border-radius:50%; background:var(--gold); color:#000; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:13px; flex-shrink:0;">④</div>
+              <div style="width:2px; flex:1; background:rgba(245,197,24,0.15); min-height:14px;"></div>
+            </div>
+            <div style="padding-bottom:16px; flex:1;">
+              <div style="font-size:13px; font-weight:700; color:var(--gold); margin-bottom:3px;">固定轉折點（鬼轉）</div>
+              <div style="font-size:13px; color:var(--text); margin-bottom:3px;">情緒最高點，語境瞬間崩塌</div>
+              <div style="font-size:12px; color:var(--text-dim); font-style:italic;">不需影片，截圖對話即可觸發</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div style="display:flex; flex-direction:column; align-items:center; z-index:1;">
+              <div style="width:32px; height:32px; border-radius:50%; background:var(--red); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:13px; flex-shrink:0;">⑤</div>
+            </div>
+            <div style="padding-bottom:4px; flex:1;">
+              <div style="font-size:13px; font-weight:700; color:var(--red); margin-bottom:3px;">品牌語句植入（核心模板）</div>
+              <div style="font-size:13px; color:var(--text); margin-bottom:3px;">固定結尾，帶著品牌名傳播</div>
+              <div style="font-size:13px; color:var(--gold); font-weight:700; font-style:italic;">「信任 公平 大獎開不停 滿貫大亨」</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:16px; background:rgba(245,197,24,0.06); border-radius:8px; padding:12px 14px; border:1px solid rgba(245,197,24,0.2);">
+          <div style="font-size:12px; color:var(--gold); font-weight:700; margin-bottom:4px;">擴散模式</div>
+          <div style="font-size:13px; color:var(--text-dim);">語境型反轉 · 截圖即可參與 · 不需 AI 或影片 · 二創門檻極低</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 關鍵差異 -->
+    <div style="width:100%; margin-top:20px; background:var(--card); border-radius:12px; padding:20px 28px; border:1px solid rgba(255,255,255,0.06); display:flex; gap:40px; align-items:center; flex-wrap:wrap;">
+      <div style="font-size:13px; font-weight:700; letter-spacing:2px; color:var(--text-dim); text-transform:uppercase; white-space:nowrap;">核心差異</div>
+      <div style="display:flex; gap:32px; flex-wrap:wrap; flex:1;">
+        <div>
+          <div style="font-size:12px; color:var(--text-dim); margin-bottom:4px;">反轉驅動力</div>
+          <div style="font-size:14px; font-weight:700;"><span style="color:#7BAAF7;">雪山</span> 身分揭露　<span style="color:var(--gold);">滿貫</span> 語境斷裂</div>
+        </div>
+        <div>
+          <div style="font-size:12px; color:var(--text-dim); margin-bottom:4px;">參與門檻</div>
+          <div style="font-size:14px; font-weight:700;"><span style="color:#7BAAF7;">雪山</span> 需拍影片　<span style="color:var(--gold);">滿貫</span> 截圖即玩</div>
+        </div>
+        <div>
+          <div style="font-size:12px; color:var(--text-dim); margin-bottom:4px;">品牌植入</div>
+          <div style="font-size:14px; font-weight:700;"><span style="color:#7BAAF7;">雪山</span> 無品牌　<span style="color:var(--gold);">滿貫</span> 傳播即曝光</div>
+        </div>
+        <div>
+          <div style="font-size:12px; color:var(--text-dim); margin-bottom:4px;">可複製性</div>
+          <div style="font-size:14px; font-weight:700;"><span style="color:#7BAAF7;">雪山</span> 需創作力　<span style="color:var(--gold);">滿貫</span> 任何人都能套</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 5 — 製作公式 ══ -->
+  <section class="slide" id="slide-5">
+    <div style="width:100%;">
+      <div class="s-section-tag">05 · 製作公式</div>
+      <h2 class="s-heading">信任鬼轉 · 5步驟</h2>
+    </div>
+    <div class="formula-container">
+      <div class="formula-steps">
+        <div class="f-step">
+          <div class="f-step-left"><div class="f-num">1</div></div>
+          <div class="f-body">
+            <div class="f-label">鉤子</div>
+            <div class="f-time">0 – 3 秒</div>
+            <div class="f-main">強情境問題 · 衝突開場</div>
+            <div class="f-quote">「你有沒有被最信任的人騙過？」</div>
+          </div>
+        </div>
+        <div class="f-step">
+          <div class="f-step-left"><div class="f-num">2</div></div>
+          <div class="f-body">
+            <div class="f-label">鋪陳</div>
+            <div class="f-time">3 – 15 秒</div>
+            <div class="f-main">建立生活感 · 真實對話 · 情境</div>
+            <div class="f-quote">日常截圖、聊天記錄、旁白帶入</div>
+          </div>
+        </div>
+        <div class="f-step">
+          <div class="f-step-left"><div class="f-num active">3</div></div>
+          <div class="f-body">
+            <div class="f-label" style="color:var(--gold);">張力堆疊 🔑 關鍵步</div>
+            <div class="f-time">15 – 30 秒</div>
+            <div class="f-main">情感拉高，觀眾開始認真<br>必須上升到「信任」關鍵詞</div>
+            <div class="f-quote">「信任」必須是被認真說出的，不能像在開玩笑</div>
+          </div>
+        </div>
+        <div class="f-step">
+          <div class="f-step-left"><div class="f-num">4</div></div>
+          <div class="f-body">
+            <div class="f-label">假高潮</div>
+            <div class="f-time">30 – 35 秒</div>
+            <div class="f-main">看似要結論 · 分手 · 教訓 · 金句</div>
+            <div class="f-quote">觀眾預期收到答案的瞬間</div>
+          </div>
+        </div>
+        <div class="f-step">
+          <div class="f-step-left"><div class="f-num boom">💥</div></div>
+          <div class="f-body">
+            <div class="f-label" style="color:var(--red);">鬼轉爆點</div>
+            <div class="f-time">35 – 40 秒</div>
+            <div class="f-main">品牌語句強行植入</div>
+            <div class="f-quote gold">「信任 公平 大獎開不停 滿貫大亨」</div>
+          </div>
+        </div>
+      </div>
+      <div class="formula-right">
+        <div class="fr-box">
+          <div class="fr-title">⚡ 核心規則</div>
+          <div class="fr-rule">
+            <strong>前面越認真 → 後面越好笑</strong><br><br>
+            鋪陳長度決定笑點強度。觀眾投入的情緒越深，品牌語句出現時的衝擊就越大。
+          </div>
+        </div>
+        <div class="fr-key">
+          <div class="fr-key-title">🔑 成敗關鍵：Step 3</div>
+          <div class="fr-key-body">
+            「信任」必須在一個<strong style="color:var(--gold);">完全認真的情境</strong>下被說出。<br><br>
+            如果觀眾在「信任」出現前已經在笑，後面的鬼轉就沒有落差，笑點消失。<br><br>
+            <strong style="color:var(--gold);">這是整個公式最容易失敗的地方。</strong>
+          </div>
+        </div>
+        <div class="fr-box" style="border-color:rgba(245,197,24,0.15); background:#0f0c00;">
+          <div class="fr-title">📊 時間比例</div>
+          <div style="display:flex; flex-direction:column; gap:8px; margin-top:4px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="font-size:12px; color:var(--text-dim); min-width:80px;">認真鋪陳</span>
+              <div style="flex:1; height:10px; background:rgba(255,255,255,0.06); border-radius:5px; overflow:hidden;">
+                <div style="width:87%; height:100%; background:var(--gold); border-radius:5px;"></div>
+              </div>
+              <span style="font-size:12px; color:var(--gold); min-width:30px;">35秒</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="font-size:12px; color:var(--text-dim); min-width:80px;">鬼轉爆點</span>
+              <div style="flex:1; height:10px; background:rgba(255,255,255,0.06); border-radius:5px; overflow:hidden;">
+                <div style="width:13%; height:100%; background:var(--red); border-radius:5px;"></div>
+              </div>
+              <span style="font-size:12px; color:var(--red); min-width:30px;">5秒</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 6 — 擴散機制 ══ -->
+  <section class="slide" id="slide-6-ugc">
+    <div style="width:100%;">
+      <div class="s-section-tag">06 · 擴散機制</div>
+      <h2 class="s-heading">擴散機制設計</h2>
+      <p class="s-desc" style="margin-bottom:16px;">為什麼這個梗天生適合病毒傳播？</p>
+    </div>
+    <div class="ugc-4col">
+      <div class="ugc-card">
+        <span class="ugc-icon">📖</span>
+        <div class="ugc-title">熟悉感</div>
+        <div class="ugc-body">舊 Slogan 已有受眾記憶，不需從零解釋，接收門檻極低，老玩家秒懂</div>
+      </div>
+      <div class="ugc-card">
+        <span class="ugc-icon">⚡</span>
+        <div class="ugc-title">強反差</div>
+        <div class="ugc-body">情緒越高，落差越大，笑點越強，越想轉給朋友看。傳播動機天然存在</div>
+      </div>
+      <div class="ugc-card">
+        <span class="ugc-icon">🎵</span>
+        <div class="ugc-title">節奏短</div>
+        <div class="ugc-body">台詞節奏感強，5秒內完成鬼轉，適合所有短影音平台，不消耗注意力</div>
+      </div>
+      <div class="ugc-card">
+        <span class="ugc-icon">♾️</span>
+        <div class="ugc-title">可無限複製</div>
+        <div class="ugc-body">任何情境都能套，截圖就能玩，不需拍影片或 AI 工具，二創門檻為零</div>
+      </div>
+    </div>
+    <div class="ugc-guide">
+      <div class="ugc-guide-title">💬 留言引導設計</div>
+      <div class="ugc-guide-grid">
+        <div class="ugg-item">
+          <div class="ugg-label">🎣 互動釣餌</div>
+          <div class="ugg-desc">引發留言討論，每則留言都是一次二次曝光，讓話題持續發酵</div>
+          <div class="ugg-example">「哪個情境最不適合講這句？留言告訴我」</div>
+        </div>
+        <div class="ugg-item">
+          <div class="ugg-label">📝 填空模板</div>
+          <div class="ugg-desc">降低參與門檻，讓任何人都能玩，製造「全民參與」的社群效應</div>
+          <div class="ugg-example">「幫我接：___→ 信任 公平 大獎開不停」</div>
+        </div>
+        <div class="ugg-item">
+          <div class="ugg-label">📸 故意「不精緻」</div>
+          <div class="ugg-desc">模仿素人發文風格，讓人誤以為是真實對話，降低廣告防禦心理，提升可信度</div>
+          <div class="ugg-example">截圖體 · 手機拍螢幕 · 不修圖</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 7 — 情境類型 ══ -->
+  <section class="slide" id="slide-6">
+    <div style="width:100%;">
+      <div class="s-section-tag">07 · 情境類型</div>
+      <h2 class="s-heading">哪些情境最能引爆？</h2>
+      <p class="s-desc" style="margin-bottom:24px;">情緒落差越大，笑點越強。以下依爆發力排序：</p>
+    </div>
+    <div class="scenario-grid">
+      <div class="sc-card top">
+        <span class="sc-badge best">最強</span>
+        <span class="sc-emoji">💔</span>
+        <div class="sc-name">愛情</div>
+        <div class="sc-sub">吵架 / 分手 / 告白時刻<br>情緒最真實，落差最大</div>
+        <div class="sc-power">
+          <div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot on"></div>
+        </div>
+        <div class="sc-example">「感情最重要的是信任。」→「公平。大獎開不停。滿貫大亨。」</div>
+      </div>
+      <div class="sc-card top">
+        <span class="sc-badge best">最強</span>
+        <span class="sc-emoji">👨‍👩‍👧</span>
+        <div class="sc-name">家庭</div>
+        <div class="sc-sub">父母教育 / 人生大道理<br>嚴肅感最強，反差最爆</div>
+        <div class="sc-power">
+          <div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot on"></div>
+        </div>
+        <div class="sc-example">「我媽說人生最重要三件事：信任、公平……」</div>
+      </div>
+      <div class="sc-card">
+        <span class="sc-emoji">💼</span>
+        <div class="sc-name">職場</div>
+        <div class="sc-sub">主管訓話 / 績效面談<br>壓力感強，共鳴廣</div>
+        <div class="sc-power">
+          <div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot"></div>
+        </div>
+        <div class="sc-example">「主管說，我們公司的核心價值是……」</div>
+      </div>
+      <div class="sc-card">
+        <span class="sc-emoji">🤝</span>
+        <div class="sc-name">友情</div>
+        <div class="sc-sub">被背叛 / 被出賣<br>負面情緒轉化為笑點</div>
+        <div class="sc-power">
+          <div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot"></div><div class="sc-dot"></div>
+        </div>
+      </div>
+      <div class="sc-card">
+        <span class="sc-emoji">🌱</span>
+        <div class="sc-name">勵志</div>
+        <div class="sc-sub">自我成長 / 心靈雞湯<br>正能量突然崩塌</div>
+        <div class="sc-power">
+          <div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot"></div><div class="sc-dot"></div>
+        </div>
+      </div>
+      <div class="sc-card">
+        <span class="sc-emoji">🃏</span>
+        <div class="sc-name">荒謬</div>
+        <div class="sc-sub">法官 / 醫生 / 算命師<br>場景本身已荒謬，落差略低</div>
+        <div class="sc-power">
+          <div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot"></div><div class="sc-dot"></div><div class="sc-dot"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 7 — KOC 操作策略 ══ -->
+  <section class="slide" id="slide-7-koc" style="background:#080D0A; align-items:flex-start;">
+    <div style="width:100%;">
+      <div class="s-section-tag">08 · KOC 操作策略</div>
+      <h2 class="s-heading">KOC 操作策略規劃</h2>
+      <p class="s-desc" style="margin-bottom:32px;">分三階段推進，從素人自然種梗到品牌規模擴散，每個階段有明確的執行角色與時機</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:16px; width:100%;">
+
+      <!-- 第一階段 -->
+      <div style="display:flex; align-items:flex-start; gap:20px; background:#0f1a12; border:1px solid rgba(0,184,148,0.2); border-radius:14px; padding:28px 32px;">
+        <div style="font-size:36px; min-width:48px;">🌱</div>
+        <div style="flex:1;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+            <div style="font-size:clamp(18px,1.8vw,22px); font-weight:700; color:var(--text);">第一槍：現有合作 KOC</div>
+            <div style="font-size:12px; font-weight:700; padding:5px 14px; border-radius:5px; background:rgba(0,184,148,0.15); color:var(--green); letter-spacing:1px;">種梗期</div>
+          </div>
+          <div style="font-size:clamp(14px,1.4vw,16px); color:var(--text-dim); line-height:1.8;">
+            既有合作素人 · 拍攝短影片發布於個人 IG<br>
+            故意「不精緻」· 讓人誤以為是真實生活記錄<br>
+            不強迫轉發至 Threads，由 KOC 自主決定
+          </div>
+        </div>
+      </div>
+
+      <!-- 第二階段 -->
+      <div style="display:flex; align-items:flex-start; gap:20px; background:#130d08; border:1px solid rgba(230,114,85,0.2); border-radius:14px; padding:28px 32px;">
+        <div style="font-size:36px; min-width:48px;">🔥</div>
+        <div style="flex:1;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+            <div style="font-size:clamp(18px,1.8vw,22px); font-weight:700; color:var(--text);">第二波：中型 KOL 接力</div>
+            <div style="font-size:12px; font-weight:700; padding:5px 14px; border-radius:5px; background:rgba(9,132,227,0.15); color:var(--blue); letter-spacing:1px;">擴散期</div>
+          </div>
+          <div style="font-size:clamp(14px,1.4vw,16px); color:var(--text-dim); line-height:1.8;">
+            20–50萬粉絲量級的生活感 KOL · 用自己的情境進行二創<br>
+            聲量累積到一定程度後再啟動，避免過早被識破為廣告
+          </div>
+        </div>
+      </div>
+
+      <!-- 第三階段 -->
+      <div style="display:flex; align-items:flex-start; gap:20px; background:#0d1220; border:1px solid rgba(9,132,227,0.2); border-radius:14px; padding:28px 32px;">
+        <div style="font-size:36px; min-width:48px;">📢</div>
+        <div style="flex:1;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+            <div style="font-size:clamp(18px,1.8vw,22px); font-weight:700; color:var(--green);">官方海巡 + 付費擴散</div>
+            <div style="font-size:12px; font-weight:700; padding:5px 14px; border-radius:5px; background:rgba(245,197,24,0.15); color:var(--gold); letter-spacing:1px;">擴大期</div>
+          </div>
+          <div style="font-size:clamp(14px,1.4vw,16px); color:var(--text-dim); line-height:1.8;">
+            品牌官方帳號在相關留言區低調互動「海巡」<br>
+            同步透過 Meta / Google / TikTok 廣告投放<br>
+            將自然聲量轉化為付費規模曝光
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="width:100%; margin-top:20px; background:rgba(245,197,24,0.05); border:1px solid rgba(245,197,24,0.15); border-radius:10px; padding:16px 24px; font-size:clamp(14px,1.3vw,15px); color:var(--text); line-height:1.6;">
+      ⏱ <strong style="color:var(--gold);">時機關鍵：</strong>三個階段必須依序推進，切勿同時啟動。品牌在第三階段才正式現身，確保前兩階段的「素人自然感」完整保留。
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 8 ══ -->
+  <section class="slide" id="slide-8">
+    <div style="width:100%;">
+      <div class="s-section-tag">09 · 平台策略</div>
+      <h2 class="s-heading">平台推進順序</h2>
+      <p class="s-desc" style="margin-bottom:24px;">KOC 先在 IG 發酵，再逐步擴散至各平台，最後以付費廣告規模化曝光</p>
+    </div>
+    <div class="platform-seq">
+      <div class="pf-node first">
+        <div class="pf-step-num">STEP 01</div>
+        <div class="pf-name green">IG Reels</div>
+        <div class="pf-role">KOC 拍攝短影片<br>發布於個人 IG<br>自然感 · 種梗起點</div>
+      </div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node">
+        <div class="pf-step-num">STEP 02</div>
+        <div class="pf-name">YT Shorts</div>
+        <div class="pf-role">影片同步上架<br>洗腦短循環<br>擴大觸及範圍</div>
+      </div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node">
+        <div class="pf-step-num">STEP 03</div>
+        <div class="pf-name">Threads</div>
+        <div class="pf-role">KOC 自主發布（不強迫）<br>官方帳號海巡留言<br>帶動自然討論聲量</div>
+      </div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node">
+        <div class="pf-step-num">STEP 04</div>
+        <div class="pf-name">廣告投放</div>
+        <div class="pf-role">Meta · Google · TikTok<br>自然聲量轉付費規模<br>全面擴散曝光</div>
+      </div>
+    </div>
+    <div class="timing-section">
+      <div class="timing-title">⏱ 各階段執行重點</div>
+      <div class="timing-flow">
+        <div class="tf-item">
+          <div class="tf-phase">Phase 1</div>
+          <div class="tf-action">KOC 種梗</div>
+          <div class="tf-desc">現有合作 KOC 於 IG 發布<br>保持「不精緻」素人感<br>品牌完全不現身</div>
+        </div>
+        <div class="tf-arrow">→</div>
+        <div class="tf-item">
+          <div class="tf-phase">Phase 2</div>
+          <div class="tf-action">多平台同步</div>
+          <div class="tf-desc">YT Shorts 同步上架<br>Threads KOC 自主擴散<br>累積自然聲量</div>
+        </div>
+        <div class="tf-arrow">→</div>
+        <div class="tf-item">
+          <div class="tf-phase">Phase 3</div>
+          <div class="tf-action">官方海巡</div>
+          <div class="tf-desc">品牌帳號低調在留言區互動<br>裝作「被發現」而非主動宣傳<br>引導更多人討論</div>
+        </div>
+        <div class="tf-arrow">→</div>
+        <div class="tf-item">
+          <div class="tf-phase">Phase 4</div>
+          <div class="tf-action">付費擴散</div>
+          <div class="tf-desc">Meta / Google / TikTok<br>廣告投放放大聲量<br>將口碑轉為規模曝光</div>
+        </div>
+      </div>
+      <div class="timing-warn">
+        ⚠️ Threads 屬於 KOC <strong>自主發布，不強迫</strong>。官方海巡留言時要低調互動，切勿以品牌身份主動宣傳，否則梗的自然感立刻消失。
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 10 ══ -->
+  <section class="slide" id="slide-10">
+    <div class="s1-badge" style="margin-bottom:24px;">策略總結</div>
+    <h2 class="s-heading" style="text-align:center; font-size:clamp(32px,4vw,56px);">一個梗，喚醒曾經的洗腦回憶</h2>
+    <p class="s-desc" style="text-align:center; max-width:600px; margin:0 auto 8px;">
+      「信任 公平 大獎開不停」不只是一句舊廣告詞——<br>它是一個等待被點燃的謎因引信。
+    </p>
+    <div class="s10-summary">
+      <div class="s10-box">
+        <div class="s10-icon">🎯</div>
+        <div class="s10-label">核心公式</div>
+        <div class="s10-value">正經情境 → 情緒堆疊至「信任」→ 鬼轉爆點</div>
+      </div>
+      <div class="s10-box">
+        <div class="s10-icon">📡</div>
+        <div class="s10-label">平台順序</div>
+        <div class="s10-value">IG Reels → YT Shorts → Threads → Meta / Google / TikTok 廣告</div>
+      </div>
+      <div class="s10-box">
+        <div class="s10-icon">⚠️</div>
+        <div class="s10-label">最大風險</div>
+        <div class="s10-value">品牌太早現身 · 鋪陳不夠真實 · 製作太精緻</div>
+      </div>
+      <div class="s10-box">
+        <div class="s10-icon">🌱</div>
+        <div class="s10-label">KOC 策略</div>
+        <div class="s10-value">現有合作 KOC 種梗 → 20–50萬 KOL 接力 → 官方海巡 + 付費擴散</div>
+      </div>
+      <div class="s10-box">
+        <div class="s10-icon">📊</div>
+        <div class="s10-label">民間佐證</div>
+        <div class="s10-value">Threads 62萬瀏覽 · 4.1萬讚 · 2,371次轉發</div>
+      </div>
+      <div class="s10-box" style="background:#1a1000; border-color:rgba(245,197,24,0.2);">
+        <div class="s10-icon">🏆</div>
+        <div class="s10-label">獨有優勢</div>
+        <div class="s10-value" style="color:var(--gold);">舊 Slogan 已有民間記憶，梗本身帶品牌名，無法被複製</div>
+      </div>
+    </div>
+    <div class="s10-final">信任 · 公平 · 大獎開不停 · 滿貫大亨</div>
+  </section>
+
+</div>
+
+<script>
+const wrapper = document.getElementById('wrapper');
+const slides = document.querySelectorAll('.slide');
+const nav = document.getElementById('nav');
+const counter = document.getElementById('counter');
+const total = slides.length;
+
+// Build nav dots
+slides.forEach((_, i) => {
+  const dot = document.createElement('button');
+  dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+  dot.title = `第 ${i+1} 頁`;
+  dot.addEventListener('click', () => goTo(i));
+  nav.appendChild(dot);
+});
+
+function goTo(index) {
+  slides[index].scrollIntoView({ behavior: 'smooth' });
+}
+
+// Update active state on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const i = Array.from(slides).indexOf(entry.target);
+      document.querySelectorAll('.nav-dot').forEach((d, j) => {
+        d.classList.toggle('active', i === j);
+      });
+      counter.textContent = `${i + 1} / ${total}`;
+    }
+  });
+}, { threshold: 0.5 });
+
+slides.forEach(s => observer.observe(s));
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  const dots = document.querySelectorAll('.nav-dot');
+  const active = Array.from(dots).findIndex(d => d.classList.contains('active'));
+  if ((e.key === 'ArrowDown' || e.key === 'PageDown') && active < total - 1) {
+    goTo(active + 1);
+  } else if ((e.key === 'ArrowUp' || e.key === 'PageUp') && active > 0) {
+    goTo(active - 1);
+  }
+});
+</script>
+</body>
+</html>
