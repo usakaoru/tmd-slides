@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>滿貫大亨｜3月KOC直播成效報表</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;900&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F4F6FA;
+  --bg2: #FFFFFF;
+  --bg3: #EEF1F8;
+  --border: #D8DCE8;
+  --text: #1A1D2E;
+  --text2: #4A4F6A;
+  --text3: #7A7F9A;
+  --qiao: #D4860A;
+  --qiao-light: #FFF3DC;
+  --qiao-mid: #F5C842;
+  --jian: #0A7FA8;
+  --jian-light: #DCF2FA;
+  --jian-mid: #3BBFCF;
+  --ling: #C42B24;
+  --ling-light: #FDECEA;
+  --ling-mid: #E8312A;
+  --accent: #3A56D4;
+  --accent-light: #EBF0FF;
+  --green: #16A34A;
+  --green-light: #DCFCE7;
+  --shadow: 0 2px 12px rgba(30,40,80,0.08);
+  --shadow2: 0 4px 24px rgba(30,40,80,0.12);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:'Noto Sans TC',sans-serif; font-size:15px; line-height:1.6; }
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, #1A1D2E 0%, #2E3460 60%, #1A1D2E 100%);
+  padding: 40px 48px 28px;
+  color: white;
+}
+.header-badge {
+  display:inline-block; font-family:'Montserrat',sans-serif; font-size:13px; font-weight:700;
+  letter-spacing:3px; color:#F5C842; border:1.5px solid #F5C842;
+  padding:4px 14px; border-radius:2px; margin-bottom:14px;
+}
+.header h1 {
+  font-family:'Montserrat',sans-serif; font-size:clamp(28px,4vw,48px);
+  font-weight:900; letter-spacing:2px; color:#fff; line-height:1.1; margin-bottom:6px;
+}
+.header h1 span { display:block; font-size:0.42em; font-weight:400; letter-spacing:3px; color:rgba(255,255,255,0.55); margin-top:6px; }
+.header-meta { display:flex; gap:24px; flex-wrap:wrap; margin-top:14px; font-size:14px; color:rgba(255,255,255,0.75); }
+.header-meta span { display:flex; align-items:center; gap:7px; }
+.dot { width:8px; height:8px; border-radius:50%; display:inline-block; flex-shrink:0; }
+
+/* NAV */
+.nav-tabs {
+  display:flex; background:var(--bg2); border-bottom:2px solid var(--border);
+  padding:0 48px; overflow-x:auto; scrollbar-width:none; box-shadow:var(--shadow);
+}
+.nav-tabs::-webkit-scrollbar { display:none; }
+.tab-btn {
+  padding:16px 24px; font-size:15px; font-weight:600; color:var(--text2);
+  background:none; border:none; border-bottom:3px solid transparent;
+  cursor:pointer; white-space:nowrap; font-family:'Noto Sans TC',sans-serif;
+  transition:all 0.2s; margin-bottom:-2px;
+}
+.tab-btn:hover { color:var(--accent); background:var(--accent-light); }
+.tab-btn.active { color:var(--accent); border-bottom-color:var(--accent); }
+
+/* MAIN */
+.main { padding:32px 48px; max-width:1400px; }
+.section { display:none; }
+.section.active { display:block; animation:fadeUp 0.25s ease; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+/* SECTION TITLE */
+.section-title {
+  font-family:'Montserrat',sans-serif; font-size:24px; font-weight:900;
+  color:var(--text); margin-bottom:24px; padding-bottom:12px;
+  border-bottom:2px solid var(--border); display:flex; align-items:center; gap:10px;
+}
+.section-title::before { content:''; display:block; width:5px; height:26px; background:var(--accent); border-radius:3px; }
+
+/* METRICS ROW */
+.metrics-row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:28px; }
+@media(max-width:900px){.metrics-row{grid-template-columns:repeat(2,1fr);}}
+.metric-card {
+  background:var(--bg2); border:1.5px solid var(--border); border-radius:12px;
+  padding:20px; text-align:center; box-shadow:var(--shadow);
+}
+.metric-card .label { font-size:13px; font-weight:600; color:var(--text3); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:8px; }
+.metric-card .value { font-family:'Montserrat',sans-serif; font-size:34px; font-weight:900; color:var(--accent); line-height:1; }
+.metric-card .sub { font-size:13px; color:var(--text3); margin-top:6px; }
+
+/* KOC GRID */
+.koc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:32px; }
+@media(max-width:900px){.koc-grid{grid-template-columns:1fr;}}
+.koc-card {
+  background:var(--bg2); border:1.5px solid var(--border); border-radius:12px;
+  padding:24px; box-shadow:var(--shadow); position:relative; overflow:hidden;
+}
+.koc-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; border-radius:12px 12px 0 0; }
+.koc-card.qiao::before { background:var(--qiao-mid); }
+.koc-card.jian::before { background:var(--jian-mid); }
+.koc-card.ling::before { background:var(--ling-mid); }
+.koc-name { font-size:19px; font-weight:800; margin-bottom:2px; }
+.koc-card.qiao .koc-name { color:var(--qiao); }
+.koc-card.jian .koc-name { color:var(--jian); }
+.koc-card.ling .koc-name { color:var(--ling); }
+.koc-platform { font-size:12px; font-weight:600; letter-spacing:2px; color:var(--text3); margin-bottom:18px; }
+.koc-stats { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.koc-stat-label { font-size:12px; color:var(--text3); margin-bottom:3px; font-weight:500; }
+.koc-stat-value { font-size:21px; font-weight:800; color:var(--text); }
+.koc-stat-value.highlight { color:var(--accent); }
+.koc-stat-sub { font-size:12px; color:var(--text3); margin-top:1px; }
+
+/* CHART */
+.chart-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px; }
+@media(max-width:900px){.chart-grid{grid-template-columns:1fr;}}
+.chart-card {
+  background:var(--bg2); border:1.5px solid var(--border); border-radius:12px;
+  padding:22px; box-shadow:var(--shadow);
+}
+.chart-card.full { grid-column:1/-1; }
+.chart-title {
+  font-size:15px; font-weight:700; color:var(--text); margin-bottom:18px;
+  display:flex; align-items:center; gap:8px;
+}
+.chart-wrap { position:relative; height:300px; }
+.chart-wrap.tall { height:360px; }
+
+/* TABLE */
+.data-table { width:100%; border-collapse:collapse; font-size:14px; }
+.data-table th {
+  padding:13px 14px; text-align:left; font-size:13px; font-weight:700;
+  color:var(--text2); background:var(--bg3); border-bottom:2px solid var(--border);
+  letter-spacing:0.5px; white-space:nowrap;
+}
+.data-table td { padding:14px 14px; border-bottom:1px solid var(--border); color:var(--text); font-size:14px; }
+.data-table tr:hover td { background:#F8F9FF; }
+.data-table .num { font-weight:700; color:var(--accent); }
+.koc-tag {
+  display:inline-block; padding:3px 9px; font-size:12px; font-weight:700;
+  border-radius:4px; white-space:nowrap;
+}
+.tag-qiao { background:var(--qiao-light); color:var(--qiao); }
+.tag-jian { background:var(--jian-light); color:var(--jian); }
+.tag-ling { background:var(--ling-light); color:var(--ling); }
+
+/* ANALYSIS */
+.analysis-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:28px; }
+@media(max-width:900px){.analysis-grid{grid-template-columns:1fr;}}
+.analysis-card {
+  background:var(--bg2); border:1.5px solid var(--border); border-radius:12px;
+  padding:24px; box-shadow:var(--shadow);
+}
+.analysis-card h3 {
+  font-size:14px; font-weight:700; letter-spacing:1px; color:var(--accent);
+  text-transform:uppercase; margin-bottom:16px; padding-bottom:10px;
+  border-bottom:1.5px solid var(--border);
+}
+.analysis-item { display:flex; gap:12px; margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid var(--bg3); }
+.analysis-item:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+.analysis-icon { font-size:18px; flex-shrink:0; margin-top:2px; }
+.analysis-text { font-size:14px; line-height:1.8; color:var(--text); }
+.analysis-text strong { color:var(--accent); }
+
+/* RANK BAR */
+.rank-bar { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+.rank-label { font-size:14px; font-weight:600; min-width:58px; }
+.rank-track { flex:1; height:8px; background:var(--bg3); border-radius:4px; overflow:hidden; }
+.rank-fill { height:100%; border-radius:4px; }
+.rank-val { font-size:13px; color:var(--text2); font-weight:600; min-width:64px; text-align:right; }
+
+/* SUMMARY BOX */
+.summary-box {
+  background:var(--accent-light); border:1.5px solid #B8C8F8;
+  border-radius:12px; padding:26px; margin-bottom:28px;
+}
+.summary-box h3 { font-family:'Montserrat',sans-serif; font-size:18px; font-weight:800; color:var(--accent); margin-bottom:14px; }
+.summary-box p { font-size:15px; line-height:1.9; color:var(--text); }
+.summary-box p + p { margin-top:10px; }
+.summary-box.green { background:var(--green-light); border-color:#86EFAC; }
+.summary-box.green h3 { color:var(--green); }
+.summary-box.blue2 { background:#EFF6FF; border-color:#BFDBFE; }
+.summary-box.blue2 h3 { color:#1D4ED8; }
+
+/* INSIGHT PILLS */
+.insight-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+.insight-pill {
+  padding:8px 16px; font-size:13px; font-weight:600; border-radius:6px;
+  display:flex; align-items:center; gap:6px; border:1.5px solid;
+}
+.pill-gold { border-color:#D4860A; color:#92500A; background:#FFF3DC; }
+.pill-blue { border-color:#0A7FA8; color:#0A5A7A; background:#DCF2FA; }
+.pill-red { border-color:#C42B24; color:#8A1E19; background:#FDECEA; }
+.pill-green { border-color:#16A34A; color:#14532D; background:#DCFCE7; }
+.pill-dim { border-color:#D8DCE8; color:#4A4F6A; background:#F4F6FA; }
+
+/* LEGEND */
+.legend { display:flex; gap:20px; flex-wrap:wrap; margin-bottom:16px; }
+.legend-item { display:flex; align-items:center; gap:7px; font-size:14px; font-weight:500; }
+.legend-dot { width:10px; height:10px; border-radius:50%; }
+
+/* FOOTER */
+.footer {
+  padding:20px 48px; border-top:1.5px solid var(--border); background:var(--bg2);
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:13px; color:var(--text3); flex-wrap:wrap; gap:10px;
+}
+.footer strong { color:var(--text2); }
+
+@media(max-width:768px){
+  .header,.nav-tabs,.main,.footer { padding-left:16px; padding-right:16px; }
+  .metrics-row { grid-template-columns:1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-badge">INTERNAL PERFORMANCE REPORT</div>
+  <h1>3月 KOC 直播成效報表<span>滿貫大亨｜2026.03 – 04</span></h1>
+  <div class="header-meta">
+    <span><span class="dot" style="background:#F5C842"></span>喬喬兒QQe（Facebook / Twitch）</span>
+    <span><span class="dot" style="background:#3BBFCF"></span>狂暴小建（Twitch）</span>
+    <span><span class="dot" style="background:#E8312A"></span>林虹伶（Facebook / Twitch）</span>
+  </div>
+</div>
+
+<div class="nav-tabs">
+  <button class="tab-btn active" onclick="switchTab('overview',this)">總覽</button>
+  <button class="tab-btn" onclick="switchTab('qiao',this)">喬喬兒QQe</button>
+  <button class="tab-btn" onclick="switchTab('jian',this)">狂暴小建</button>
+  <button class="tab-btn" onclick="switchTab('ling',this)">林虹伶</button>
+  <button class="tab-btn" onclick="switchTab('compare',this)">對比分析</button>
+  <button class="tab-btn" onclick="switchTab('ingame',this)">遊戲內數據</button>
+  <button class="tab-btn" onclick="switchTab('verdict',this)">合作效益評估</button>
+</div>
+
+<div class="main">
+
+<!-- ===== OVERVIEW ===== -->
+<div class="section active" id="tab-overview">
+  <div class="section-title">三人直播綜合總覽</div>
+  <div class="metrics-row">
+    <div class="metric-card"><div class="label">合計直播場次</div><div class="value">7</div><div class="sub">3月21日 – 4月4日</div></div>
+    <div class="metric-card"><div class="label">Facebook 總觸及</div><div class="value">2.75萬+</div><div class="sub">瀏覽次數合計</div></div>
+    <div class="metric-card"><div class="label">Twitch 總觀看</div><div class="value">3.2萬+</div><div class="sub">Live 觀看次數合計</div></div>
+    <div class="metric-card"><div class="label">最高單場觀眾</div><div class="value">884</div><div class="sub">喬喬 3/21 不重複觀眾</div></div>
+  </div>
+
+  <div class="koc-grid">
+    <div class="koc-card qiao">
+      <div class="koc-name">喬喬兒QQe</div><div class="koc-platform">FACEBOOK + TWITCH</div>
+      <div class="koc-stats">
+        <div><div class="koc-stat-label">Twitch 場次</div><div class="koc-stat-value highlight">3</div></div>
+        <div><div class="koc-stat-label">FB 貼文</div><div class="koc-stat-value highlight">4</div></div>
+        <div><div class="koc-stat-label">最高不重複觀眾</div><div class="koc-stat-value">884</div><div class="koc-stat-sub">3/21 場次</div></div>
+        <div><div class="koc-stat-label">FB 總瀏覽</div><div class="koc-stat-value">~2萬</div></div>
+        <div><div class="koc-stat-label">最高 Live 觀看</div><div class="koc-stat-value">1,182</div><div class="koc-stat-sub">3/21 場次</div></div>
+        <div><div class="koc-stat-label">FB 總互動</div><div class="koc-stat-value">664</div><div class="koc-stat-sub">4貼文合計</div></div>
+      </div>
+    </div>
+    <div class="koc-card jian">
+      <div class="koc-name">狂暴小建</div><div class="koc-platform">TWITCH</div>
+      <div class="koc-stats">
+        <div><div class="koc-stat-label">直播場次</div><div class="koc-stat-value highlight">2</div></div>
+        <div><div class="koc-stat-label">平台</div><div class="koc-stat-value highlight">Twitch</div></div>
+        <div><div class="koc-stat-label">最高觀眾（3/27）</div><div class="koc-stat-value">845</div></div>
+        <div><div class="koc-stat-label">最高觀眾（4/3）</div><div class="koc-stat-value">867</div></div>
+        <div><div class="koc-stat-label">Live 觀看合計</div><div class="koc-stat-value">15,481</div></div>
+        <div><div class="koc-stat-label">平均觀眾</div><div class="koc-stat-value">~705</div><div class="koc-stat-sub">兩場平均</div></div>
+      </div>
+    </div>
+    <div class="koc-card ling">
+      <div class="koc-name">林虹伶</div><div class="koc-platform">FACEBOOK + TWITCH</div>
+      <div class="koc-stats">
+        <div><div class="koc-stat-label">Twitch 場次</div><div class="koc-stat-value highlight">2</div></div>
+        <div><div class="koc-stat-label">FB 直播</div><div class="koc-stat-value highlight">2</div></div>
+        <div><div class="koc-stat-label">最高 Twitch 觀眾</div><div class="koc-stat-value">23</div><div class="koc-stat-sub">起步階段</div></div>
+        <div><div class="koc-stat-label">FB 直播總觀看</div><div class="koc-stat-value">876</div></div>
+        <div><div class="koc-stat-label">FB 總互動</div><div class="koc-stat-value">264</div></div>
+        <div><div class="koc-stat-label">YouTube 合計觀看</div><div class="koc-stat-value">1.48萬</div><div class="koc-stat-sub">影片+直播</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-grid">
+    <div class="chart-card"><div class="chart-title">📊 Twitch Live 觀看次數比較</div><div class="chart-wrap"><canvas id="chart-live-views"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">👥 最高觀眾人數比較</div><div class="chart-wrap"><canvas id="chart-peak"></canvas></div></div>
+  </div>
+  <div class="chart-card full" style="margin-bottom:24px"><div class="chart-title">⏱ 各場直播時長（分鐘）</div><div class="chart-wrap tall"><canvas id="chart-duration"></canvas></div></div>
+
+  <div class="summary-box">
+    <h3>本月直播成效摘要</h3>
+    <p>本月共執行 <strong>7 場</strong> KOC 直播合作（喬喬3場、小建2場、虹伶2場），橫跨 Twitch 及 Facebook 雙平台，涵蓋機台主題：風暴賽特2、戰神呂布、火燒赤壁、雷霆之錘2。<strong>狂暴小建</strong>在 Twitch 端整體表現最強勁，兩場合計 Live 觀看突破 <strong>15,481 次</strong>，全場平均觀眾約 705 人；以晚上8點後有效時段計算，3/27 平均觀眾達 <strong>762 人</strong>、4/3 為 <strong>655 人</strong>，不重複觀眾亦維持在 6,000 以上，體現出穩健的既有受眾基礎。</p>
+    <p><strong>喬喬兒QQe</strong> 在 Facebook 多貼文佈局上表現積極，3/21 場次（風暴賽特2）達到最佳單場成績（不重複觀眾 884、Live 觀看 1,182），顯示特定遊戲題材對其受眾有較強吸引力；後續場次（戰神呂布、雷霆之錘2）數據明顯下滑，需持續觀察內容選題與宣傳預熱策略。<strong>林虹伶</strong>在 Twitch 端目前仍處於起步階段，但 Facebook 直播端有一定互動基礎，且 YouTube 影片累積觀看量達 <strong>1.48萬</strong>，具備跨平台延伸潛力。</p>
+  </div>
+</div>
+
+<!-- ===== 喬喬 ===== -->
+<div class="section" id="tab-qiao">
+  <div class="section-title">喬喬兒QQe 詳細數據</div>
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot" style="background:#D4860A"></span>Twitch 直播數據</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#3A56D4"></span>Facebook 貼文數據</div>
+  </div>
+  <div class="chart-grid">
+    <div class="chart-card"><div class="chart-title">📈 Twitch 三場次關鍵指標</div><div class="chart-wrap"><canvas id="chart-qiao-twitch"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">💬 Facebook 四貼文互動數</div><div class="chart-wrap"><canvas id="chart-qiao-fb-eng"></canvas></div></div>
+  </div>
+  <div class="chart-card full" style="margin-bottom:24px"><div class="chart-title">🔍 Facebook 各貼文瀏覽次數</div><div class="chart-wrap"><canvas id="chart-qiao-fb-reach"></canvas></div></div>
+
+  <div class="chart-card full" style="margin-bottom:24px;padding:0;overflow:auto;">
+    <table class="data-table">
+      <thead><tr><th>日期</th><th>機台主題</th><th>實況時長</th><th>平均觀眾</th><th>最高觀眾</th><th>不重複觀眾</th><th>Live 觀看</th><th>追隨者</th><th>新訂閱</th></tr></thead>
+      <tbody>
+        <tr><td>3/21（六）</td><td><span class="koc-tag tag-qiao">風暴賽特2</span></td><td>1h 32m</td><td class="num">20</td><td class="num">29</td><td class="num">884</td><td class="num">1,182</td><td class="num">42</td><td class="num">3</td></tr>
+        <tr><td>3/28（六）</td><td><span class="koc-tag tag-qiao">戰神呂布</span></td><td>1h 38m</td><td class="num">9</td><td class="num">19</td><td class="num">421</td><td class="num">553</td><td class="num">12</td><td class="num">0</td></tr>
+        <tr><td>4/4（六）</td><td><span class="koc-tag tag-qiao">雷霆之錘2</span></td><td>1h 51m</td><td class="num">8</td><td class="num">13</td><td class="num">417</td><td class="num">564</td><td class="num">10</td><td class="num">0</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="chart-card full" style="margin-bottom:24px;padding:0;overflow:auto;">
+    <table class="data-table">
+      <thead><tr><th>發文日期</th><th>機台主題</th><th>瀏覽次數</th><th>心情數</th><th>留言數</th><th>分享</th><th>儲存</th><th>合格觀看次數</th><th>互動合計</th></tr></thead>
+      <tbody>
+        <tr><td>3/21（六）</td><td><span class="koc-tag tag-qiao">風暴賽特2</span></td><td class="num">6,522</td><td class="num">177</td><td class="num">110</td><td class="num">0</td><td class="num">10</td><td class="num">921</td><td class="num">309</td></tr>
+        <tr><td>3/28（六）A</td><td><span class="koc-tag tag-qiao">戰神呂布</span></td><td class="num">6,012</td><td class="num">118</td><td class="num">12</td><td class="num">0</td><td class="num">2</td><td class="num">567</td><td class="num">137</td></tr>
+        <tr><td>3/28（六）B</td><td><span class="koc-tag tag-qiao">戰神呂布</span></td><td class="num">5,023</td><td class="num">64</td><td class="num">31</td><td class="num">0</td><td class="num">0</td><td class="num">333</td><td class="num">103</td></tr>
+        <tr><td>4/4（六）</td><td><span class="koc-tag tag-qiao">雷霆之錘2</span></td><td class="num">2,991</td><td class="num">63</td><td class="num">45</td><td class="num">0</td><td class="num">0</td><td class="num">287</td><td class="num">115</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="analysis-grid">
+    <div class="analysis-card">
+      <h3>重點觀察</h3>
+      <div class="analysis-item"><div class="analysis-icon">📉</div><div class="analysis-text"><strong>觀眾下滑趨勢明顯：</strong>Twitch 從 3/21 的 884 不重複觀眾，到 3/28 及 4/4 均跌落至 400 上下，Live 觀看次數減半，顯示初場吸引到較多新觀眾後，後續場次留存率不足。</div></div>
+      <div class="analysis-item"><div class="analysis-icon">⭐</div><div class="analysis-text"><strong>3/21 場次為最佳：</strong>風暴賽特2主題直播帶來最高互動（FB 309次）及最高觀看（Twitch 1,182 次），可作為日後選題基準。</div></div>
+      <div class="analysis-item"><div class="analysis-icon">📘</div><div class="analysis-text"><strong>FB 瀏覽量穩定但互動衰減：</strong>Facebook 貼文每場約 3,000–6,500 瀏覽，互動率從 4.7% 降至 1.7%，需調整內容策略。</div></div>
+    </div>
+    <div class="analysis-card">
+      <h3>建議方向</h3>
+      <div class="analysis-item"><div class="analysis-icon">🎯</div><div class="analysis-text">優先安排<strong>風暴賽特2、戰神呂布等高 IP 知名度</strong>遊戲場次，複製 3/21 成功模式；後兩場衰退明顯，建議搭配更完整的預熱宣傳。</div></div>
+      <div class="analysis-item"><div class="analysis-icon">⏰</div><div class="analysis-text">連續三週都於<strong>週六下午至晚上</strong>直播，時段策略一致，可嘗試延長時段或搭配限時活動提升滯留率。</div></div>
+      <div class="analysis-item"><div class="analysis-icon">💡</div><div class="analysis-text">FB 貼文以<strong>限時動態、Reels 導流</strong>（各佔 20–30%）為主，建議增加互動型內容（留言抽獎、問答）以提升留言數。</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 小建 ===== -->
+<div class="section" id="tab-jian">
+  <div class="section-title">狂暴小建 詳細數據</div>
+  <div class="metrics-row">
+    <div class="metric-card"><div class="label">合計直播時長</div><div class="value" style="font-size:24px">10h 42m</div><div class="sub">兩場合計（含暖場）</div></div>
+    <div class="metric-card"><div class="label">Live 觀看合計</div><div class="value">15,481</div><div class="sub">三人中最高</div></div>
+    <div class="metric-card"><div class="label">峰值觀眾（4/3）</div><div class="value">867</div><div class="sub">兩場最高</div></div>
+    <div class="metric-card"><div class="label">晚8點後平均觀眾</div><div class="value">~709</div><div class="sub">3/27: 762｜4/3: 655</div></div>
+  </div>
+  <div class="chart-grid">
+    <div class="chart-card"><div class="chart-title">📊 兩場次關鍵指標對比</div><div class="chart-wrap"><canvas id="chart-jian-compare"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">👁 觀眾規模雷達圖</div><div class="chart-wrap"><canvas id="chart-jian-radar"></canvas></div></div>
+  </div>
+
+  <div class="chart-card full" style="margin-bottom:24px;padding:0;overflow:auto;">
+    <table class="data-table">
+      <thead><tr><th>日期</th><th>機台主題</th><th>直播時段</th><th>實況時長</th><th>全場均觀眾</th><th>晚8點後均觀眾</th><th>最高觀眾</th><th>不重複觀眾</th><th>不重複聊天</th><th>Live 觀看</th><th>追隨者</th><th>新訂閱</th></tr></thead>
+      <tbody>
+        <tr><td>3/27（五）</td><td><span class="koc-tag tag-jian">風暴賽特2</span></td><td>下午4:18–9:17</td><td>4h 59m</td><td class="num">712</td><td class="num" style="color:#0A7FA8">762</td><td class="num">845</td><td class="num">6,027</td><td class="num">110</td><td class="num">7,302</td><td class="num">0</td><td class="num">1</td></tr>
+        <tr><td>4/3（五）</td><td><span class="koc-tag tag-jian">火燒赤壁</span></td><td>下午3:31–9:14</td><td>5h 43m</td><td class="num">697</td><td class="num" style="color:#0A7FA8">655</td><td class="num">867</td><td class="num">6,384</td><td class="num">98</td><td class="num">8,179</td><td class="num">1</td><td class="num">5</td></tr>
+      </tbody>
+    </table>
+    <div style="padding:10px 16px;font-size:12px;color:var(--text3)">＊ 晚8點後均觀眾為實際補充數據，供與其他 KOC 同時段比較使用；全場數據含暖場時段。</div>
+  </div>
+
+  <div class="analysis-grid">
+    <div class="analysis-card">
+      <h3>重點觀察</h3>
+      <div class="analysis-item"><div class="analysis-icon">💪</div><div class="analysis-text"><strong>三人中 Twitch 表現最強：</strong>平均觀眾超過 700 人、不重複觀眾維持 6,000+，Live 觀看合計超過 1.5 萬次，基礎受眾紮實且忠誠度高。</div></div>
+      <div class="analysis-item"><div class="analysis-icon">🕗</div><div class="analysis-text"><strong>晚8點後有效時段數據：</strong>晚8點後均觀眾 3/27 <strong>762人</strong>、4/3 <strong>655人</strong>，仍大幅領先其他主播。4/3 晚8後數據低於全場均值，顯示觀眾尖峰集中在播出前段。</div></div>
+      <div class="analysis-item"><div class="analysis-icon">🎮</div><div class="analysis-text"><strong>機台選題影響：</strong>3/27（風暴賽特2）全場均觀眾 712 略高，但 4/3（火燒赤壁）在時長延長44分鐘下 Live 觀看成長 12%（+877次），整體效益以 4/3 略優。</div></div>
+    </div>
+    <div class="analysis-card">
+      <h3>建議方向</h3>
+      <div class="analysis-item"><div class="analysis-icon">🔁</div><div class="analysis-text">維持<strong>週五開播</strong>的固定節奏，保持受眾預期感；考慮將開播時間提前至<strong>下午3點前</strong>以拉長有效觀看時段。</div></div>
+      <div class="analysis-item"><div class="analysis-icon">📣</div><div class="analysis-text">目前 Twitch 追隨/訂閱成長緩慢，建議於直播中<strong>加入訂閱激勵機制</strong>（例如累積達標解鎖福利），提升訂閱轉換率。</div></div>
+      <div class="analysis-item"><div class="analysis-icon">🎮</div><div class="analysis-text">持續以<strong>多款遊戲輪替</strong>策略維持觀眾新鮮感；新上架的<strong>戰神呂布</strong>建議優先安排首播體驗場。</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 虹伶 ===== -->
+<div class="section" id="tab-ling">
+  <div class="section-title">林虹伶 詳細數據</div>
+  <div class="chart-grid">
+    <div class="chart-card"><div class="chart-title">📡 Twitch 兩場次比較</div><div class="chart-wrap"><canvas id="chart-ling-twitch"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">📱 Facebook 直播互動數據</div><div class="chart-wrap"><canvas id="chart-ling-fb"></canvas></div></div>
+  </div>
+
+  <div class="chart-card full" style="margin-bottom:24px;padding:0;overflow:auto;">
+    <table class="data-table">
+      <thead><tr><th>日期</th><th>平台</th><th>機台主題</th><th>時長</th><th>平均觀眾</th><th>最高觀眾</th><th>不重複觀眾</th><th>Live 觀看/瀏覽</th><th>互動</th><th>追隨/新訂閱</th></tr></thead>
+      <tbody>
+        <tr><td>3/22（日）</td><td><span class="koc-tag tag-ling">Twitch</span></td><td><span class="koc-tag tag-ling">戰神呂布</span></td><td>1h 32m</td><td class="num">14</td><td class="num">23</td><td class="num">410</td><td class="num">508</td><td>—</td><td class="num">1 / 0</td></tr>
+        <tr><td>3/23（一）</td><td><span class="koc-tag tag-ling">Twitch</span></td><td><span class="koc-tag tag-ling">火燒赤壁</span></td><td>1h 27m</td><td class="num">14</td><td class="num">23</td><td class="num">314</td><td class="num">368</td><td>—</td><td class="num">4 / 0</td></tr>
+        <tr><td>3/22（日）</td><td><span class="koc-tag" style="background:#EEF2FF;color:#3A56D4">Facebook</span></td><td><span class="koc-tag tag-ling">戰神呂布</span></td><td>1h 32m</td><td>—</td><td class="num">11</td><td class="num">0</td><td class="num">1,925 瀏覽</td><td>心情64 留言45 分享9</td><td>—</td></tr>
+        <tr><td>3/23（一）</td><td><span class="koc-tag" style="background:#EEF2FF;color:#3A56D4">Facebook</span></td><td><span class="koc-tag tag-ling">火燒赤壁</span></td><td>1h 27m</td><td>—</td><td class="num">10</td><td class="num">0</td><td class="num">2,497 瀏覽</td><td>心情113 留言19 分享13</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="analysis-grid">
+    <div class="analysis-card">
+      <h3>重點觀察</h3>
+      <div class="analysis-item"><div class="analysis-icon">🌱</div><div class="analysis-text"><strong>Twitch 仍在起步期：</strong>平均觀眾僅 14 人，不重複觀眾約 300–400，Live 觀看不到 600，與小建差距懸殊，需強化預熱宣傳。</div></div>
+      <div class="analysis-item"><div class="analysis-icon">📘</div><div class="analysis-text"><strong>Facebook 端表現優於 Twitch：</strong>兩場 FB 直播總瀏覽達 4,422，3/22 場次合計互動（心情+留言+分享）118 次，互動率相對穩定。</div></div>
+      <div class="analysis-item"><div class="analysis-icon">▶️</div><div class="analysis-text"><strong>YouTube 長尾效益明顯：</strong>影片上傳後累積觀看 9,233（03/23）及 5,541（03/22），YouTube 受眾對直播回放仍有高接受度。</div></div>
+    </div>
+    <div class="analysis-card">
+      <h3>建議方向</h3>
+      <div class="analysis-item"><div class="analysis-icon">📢</div><div class="analysis-text">針對 Twitch 場次，<strong>提前在 FB / IG 限時動態預告</strong>直播時間，導流現有粉絲至 Twitch，縮短冷啟動期。</div></div>
+      <div class="analysis-item"><div class="analysis-icon">📹</div><div class="analysis-text">善用 YouTube 長尾流量優勢，<strong>直播結束後剪輯精華影片</strong>上傳，搭配滿貫大亨品牌 CTA，延伸單場曝光效益。</div></div>
+      <div class="analysis-item"><div class="analysis-icon">🗓</div><div class="analysis-text">建議將場次從<strong>週日/週一調整為週末黃金時段</strong>（週五/週六晚間），配合目標受眾在線習慣，提升即時觀看人數。</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== COMPARE ===== -->
+<div class="section" id="tab-compare">
+  <div class="section-title">三人對比分析</div>
+  <div class="chart-grid">
+    <div class="chart-card"><div class="chart-title">🏆 Twitch 平均觀眾人數</div><div class="chart-wrap"><canvas id="chart-cmp-avg"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">📺 Twitch 不重複觀眾數（各場）</div><div class="chart-wrap"><canvas id="chart-cmp-unique"></canvas></div></div>
+  </div>
+  <div class="chart-card full" style="margin-bottom:24px"><div class="chart-title">📊 Live 觀看次數總覽（各場）</div><div class="chart-wrap tall"><canvas id="chart-cmp-live"></canvas></div></div>
+
+  <div class="analysis-grid" style="margin-bottom:24px">
+    <div class="analysis-card">
+      <h3>Twitch 表現排名</h3>
+      <div style="margin-top:8px">
+        <div style="font-size:12px;color:var(--text3);margin-bottom:8px;font-weight:600">全場平均觀眾</div>
+        <div class="rank-bar"><span class="rank-label" style="color:var(--jian)">小建</span><div class="rank-track"><div class="rank-fill" style="width:100%;background:var(--jian-mid)"></div></div><span class="rank-val">avg 705</span></div>
+        <div class="rank-bar"><span class="rank-label" style="color:var(--ling)">虹伶</span><div class="rank-track"><div class="rank-fill" style="width:2%;background:var(--ling-mid)"></div></div><span class="rank-val">avg 14</span></div>
+        <div class="rank-bar"><span class="rank-label" style="color:var(--qiao)">喬喬</span><div class="rank-track"><div class="rank-fill" style="width:2%;background:var(--qiao-mid)"></div></div><span class="rank-val">avg 12</span></div>
+      </div>
+      <div style="margin-top:16px">
+        <div style="font-size:12px;color:var(--text3);margin-bottom:8px;font-weight:600">晚8點後均觀眾</div>
+        <div class="rank-bar"><span class="rank-label" style="color:var(--jian)">小建</span><div class="rank-track"><div class="rank-fill" style="width:100%;background:var(--jian-mid)"></div></div><span class="rank-val">~709</span></div>
+        <div style="font-size:11px;color:var(--text3);padding-left:68px;margin-top:-6px;margin-bottom:10px">3/27: 762｜4/3: 655</div>
+      </div>
+      <div style="margin-top:8px">
+        <div style="font-size:12px;color:var(--text3);margin-bottom:8px;font-weight:600">Live 觀看合計</div>
+        <div class="rank-bar"><span class="rank-label" style="color:var(--jian)">小建</span><div class="rank-track"><div class="rank-fill" style="width:100%;background:var(--jian-mid)"></div></div><span class="rank-val">15,481</span></div>
+        <div class="rank-bar"><span class="rank-label" style="color:var(--qiao)">喬喬</span><div class="rank-track"><div class="rank-fill" style="width:15%;background:var(--qiao-mid)"></div></div><span class="rank-val">2,299</span></div>
+        <div class="rank-bar"><span class="rank-label" style="color:var(--ling)">虹伶</span><div class="rank-track"><div class="rank-fill" style="width:6%;background:var(--ling-mid)"></div></div><span class="rank-val">876</span></div>
+      </div>
+    </div>
+    <div class="analysis-card">
+      <h3>Facebook 互動排名</h3>
+      <div style="margin-top:8px">
+        <div style="font-size:12px;color:var(--text3);margin-bottom:8px;font-weight:600">FB 互動次數合計</div>
+        <div class="rank-bar"><span class="rank-label" style="color:var(--qiao)">喬喬</span><div class="rank-track"><div class="rank-fill" style="width:100%;background:var(--qiao-mid)"></div></div><span class="rank-val">664 次</span></div>
+        <div class="rank-bar"><span class="rank-label" style="color:var(--ling)">虹伶</span><div class="rank-track"><div class="rank-fill" style="width:40%;background:var(--ling-mid)"></div></div><span class="rank-val">264 次</span></div>
+        <div class="rank-bar"><span class="rank-label" style="color:var(--jian)">小建</span><div class="rank-track"><div class="rank-fill" style="width:0%;background:var(--jian-mid)"></div></div><span class="rank-val">—</span></div>
+      </div>
+      <div style="margin-top:16px">
+        <div style="font-size:12px;color:var(--text3);margin-bottom:8px;font-weight:600">FB 總瀏覽次數</div>
+        <div class="rank-bar"><span class="rank-label" style="color:var(--qiao)">喬喬</span><div class="rank-track"><div class="rank-fill" style="width:100%;background:var(--qiao-mid)"></div></div><span class="rank-val">~2.05萬</span></div>
+        <div class="rank-bar"><span class="rank-label" style="color:var(--ling)">虹伶</span><div class="rank-track"><div class="rank-fill" style="width:21%;background:var(--ling-mid)"></div></div><span class="rank-val">~4,422</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-box">
+    <h3>綜合評估與下月建議</h3>
+    <p><strong>小建</strong>為本月整體 Twitch 表現最佳 KOC，穩定的長時直播、高觀眾基數及良好的互動節奏，是合作效益最高的主播。因開播時間較早，晚8點後有效時段均觀眾為 762（3/27）/ 655（4/3），仍大幅領先其他主播。建議維持月度 2 場配置，並在戰神呂布新機上市期間安排優先搶先體驗直播。</p>
+    <p><strong>喬喬兒QQe</strong>在 Facebook 雙平台佈局具備一定覆蓋廣度，3/21 場次（風暴賽特2）是明確的成功案例，下月應以此為基準，選擇高 IP 知名度遊戲搭配，同時加強直播前 FB / 限時動態預熱導流。</p>
+    <p><strong>林虹伶</strong>目前 Twitch 端仍在冷啟動期，但 YouTube 長尾流量潛力值得挖掘。建議調整直播時段至週末黃金時段，並以 Facebook 既有粉絲為基礎積極導流 Twitch，短期目標將平均觀眾提升至 30–50 人。</p>
+  </div>
+  <div class="insight-row">
+    <div class="insight-pill pill-blue">🏆 Twitch 最強：小建（晚8後avg 762/655）</div>
+    <div class="insight-pill pill-gold">⭐ FB 互動最佳：喬喬（664次互動）</div>
+    <div class="insight-pill pill-red">📈 成長潛力：虹伶（YT 長尾1.48萬）</div>
+    <div class="insight-pill pill-dim">📅 下月主推：戰神呂布新機體驗場</div>
+  </div>
+</div>
+
+<!-- ===== 遊戲內數據 ===== -->
+<div class="section" id="tab-ingame">
+  <div class="section-title">遊戲內直播共玩數據（3月場次）</div>
+  <div class="metrics-row">
+    <div class="metric-card"><div class="label">7場合計直播間總人數</div><div class="value">5,725</div><div class="sub">遊戲內進入直播間</div></div>
+    <div class="metric-card"><div class="label">合計共押不重複玩家</div><div class="value">3,110</div><div class="sub">實際參與押注人數</div></div>
+    <div class="metric-card"><div class="label">合計整場押注量</div><div class="value">111萬</div><div class="sub">紅鑽合計（1,108,588）</div></div>
+    <div class="metric-card"><div class="label">合計整場總贏分</div><div class="value">150萬</div><div class="sub">紅鑽合計（1,495,863）</div></div>
+  </div>
+
+  <div class="chart-grid">
+    <div class="chart-card"><div class="chart-title">🏟 各場直播間總人數 vs 共押參與人數</div><div class="chart-wrap tall"><canvas id="chart-ig-participation"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">💰 各場押注量 vs 總贏分（紅鑽）</div><div class="chart-wrap tall"><canvas id="chart-ig-betting"></canvas></div></div>
+  </div>
+  <div class="chart-card full" style="margin-bottom:24px"><div class="chart-title">🎁 各場斗內總人數 vs 場外愛心人數趨勢</div><div class="chart-wrap tall"><canvas id="chart-ig-engagement"></canvas></div></div>
+
+  <div class="chart-card full" style="margin-bottom:24px;padding:0;overflow:auto;">
+    <table class="data-table">
+      <thead><tr><th>日期</th><th>KOC</th><th>機台</th><th>時段</th><th>直播間總人數</th><th>最高同上人數</th><th>共押不重複玩家</th><th>整場押注量</th><th>整場總贏分</th><th>斗內總人數</th><th>有斗錢不重複</th><th>場外愛心人數</th><th>場外愛心總數</th><th>總斗內紅鑽</th><th>聊天室等級</th></tr></thead>
+      <tbody>
+        <tr><td>3/21</td><td><span class="koc-tag tag-qiao">喬喬兒</span></td><td><span class="koc-tag tag-qiao">風暴賽特2</span></td><td>20:00–21:00</td><td class="num">784</td><td class="num">318</td><td class="num">397</td><td class="num">143,275</td><td class="num">200,013</td><td class="num">549</td><td class="num">67</td><td class="num">159</td><td class="num">518</td><td class="num">20,154</td><td>LV10</td></tr>
+        <tr><td>3/22</td><td><span class="koc-tag tag-ling">虹伶</span></td><td><span class="koc-tag tag-ling">戰神呂布</span></td><td>20:00–21:00</td><td class="num">815</td><td class="num">308</td><td class="num">458</td><td class="num">153,084</td><td class="num">225,515</td><td class="num">600</td><td class="num">56</td><td class="num">188</td><td class="num">663</td><td class="num">8,434</td><td>LV7</td></tr>
+        <tr><td>3/23</td><td><span class="koc-tag tag-ling">虹伶</span></td><td><span class="koc-tag tag-ling">火燒赤壁</span></td><td>20:00–21:00</td><td class="num">926</td><td class="num">341</td><td class="num">531</td><td class="num">235,915</td><td class="num">381,780</td><td class="num">767</td><td class="num">54</td><td class="num">233</td><td class="num">460</td><td class="num">7,035</td><td>LV8</td></tr>
+        <tr><td>3/27</td><td><span class="koc-tag tag-jian">小建</span></td><td><span class="koc-tag tag-jian">風暴賽特2</span></td><td>（全場）</td><td class="num">712</td><td class="num">455</td><td class="num">423</td><td class="num">133,219</td><td class="num">161,182</td><td class="num">633</td><td class="num">24</td><td class="num">202</td><td class="num">325</td><td class="num">676</td><td>—</td></tr>
+        <tr><td>3/28</td><td><span class="koc-tag tag-qiao">喬喬兒</span></td><td><span class="koc-tag tag-qiao">戰神呂布</span></td><td>20:00–21:00</td><td class="num">835</td><td class="num">294</td><td class="num">427</td><td class="num">130,174</td><td class="num">195,435</td><td class="num">783</td><td class="num">40</td><td class="num">279</td><td class="num">1,203</td><td class="num">6,736</td><td>—</td></tr>
+        <tr><td>4/3</td><td><span class="koc-tag tag-jian">小建</span></td><td><span class="koc-tag tag-jian">火燒赤壁</span></td><td>（全場）</td><td class="num">665</td><td class="num">439</td><td class="num">419</td><td class="num">180,407</td><td class="num">200,391</td><td class="num">921</td><td class="num">17</td><td class="num">492</td><td class="num">1,057</td><td class="num">1,870</td><td>—</td></tr>
+        <tr><td>4/4</td><td><span class="koc-tag tag-qiao">喬喬兒</span></td><td><span class="koc-tag tag-qiao">雷霆之錘2</span></td><td>20:00–21:00</td><td class="num">988</td><td class="num">611</td><td class="num">455</td><td class="num">132,514</td><td class="num">131,547</td><td class="num">1,150</td><td class="num">42</td><td class="num">629</td><td class="num">1,319</td><td class="num">8,683</td><td>—</td></tr>
+        <tr style="background:#F0F4FF;font-weight:700"><td colspan="4" style="color:var(--accent);font-weight:700">合計</td><td class="num">5,725</td><td>—</td><td class="num">3,110</td><td class="num">1,108,588</td><td class="num">1,495,863</td><td class="num">5,403</td><td class="num">300</td><td class="num">2,182</td><td class="num">5,545</td><td class="num">53,588</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="chart-grid">
+    <div class="chart-card"><div class="chart-title">📐 共押轉化率（共押人數／直播間總人數）</div><div class="chart-wrap"><canvas id="chart-ig-cvr"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">🏆 最高同上人數 vs 直播間總人數</div><div class="chart-wrap"><canvas id="chart-ig-peak-ratio"></canvas></div></div>
+  </div>
+
+  <div class="analysis-grid" style="margin-top:24px">
+    <div class="analysis-card">
+      <h3>遊戲內互動重點觀察</h3>
+      <div class="analysis-item"><div class="analysis-icon">🔝</div><div class="analysis-text"><strong>4/4 喬喬（雷霆之錘2）直播間人數最高：</strong>988人進入直播間，最高同上 611 人，斗內總人數 1,150 人，場外愛心人數 629 人，遊戲內互動強度全場最高。</div></div>
+      <div class="analysis-item"><div class="analysis-icon">💎</div><div class="analysis-text"><strong>3/23 虹伶（火燒赤壁）押注量最高：</strong>整場押注量 235,915 紅鑽、總贏分 381,780 紅鑽，押贏比高達 1.62，玩家活躍度及留存最強。</div></div>
+      <div class="analysis-item"><div class="analysis-icon">📊</div><div class="analysis-text"><strong>共押轉化率介於 46–63%：</strong>七場均有超過一半進入直播間的玩家實際參與押注，轉化率穩定，直播共玩機制有效驅動玩家行動。</div></div>
+      <div class="analysis-item"><div class="analysis-icon">🎁</div><div class="analysis-text"><strong>喬喬兒斗內紅鑽貢獻最高：</strong>3/21 場次斗內紅鑽達 20,154，遠高於其他場次，粉絲付費意願及打賞能力較強。</div></div>
+    </div>
+    <div class="analysis-card">
+      <h3>各 KOC 遊戲內數據小結</h3>
+      <div style="margin-top:4px">
+        <div style="font-size:12px;color:var(--text3);margin-bottom:8px;font-weight:600">直播間人數平均</div>
+        <div class="rank-bar"><span class="rank-label" style="color:var(--ling)">虹伶</span><div class="rank-track"><div class="rank-fill" style="width:100%;background:var(--ling-mid)"></div></div><span class="rank-val">avg 871</span></div>
+        <div class="rank-bar"><span class="rank-label" style="color:var(--qiao)">喬喬</span><div class="rank-track"><div class="rank-fill" style="width:99%;background:var(--qiao-mid)"></div></div><span class="rank-val">avg 869</span></div>
+        <div class="rank-bar"><span class="rank-label" style="color:var(--jian)">小建</span><div class="rank-track"><div class="rank-fill" style="width:79%;background:var(--jian-mid)"></div></div><span class="rank-val">avg 689</span></div>
+      </div>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:var(--text3);margin-bottom:8px;font-weight:600">平均押注量/場（紅鑽）</div>
+        <div class="rank-bar"><span class="rank-label" style="color:var(--ling)">虹伶</span><div class="rank-track"><div class="rank-fill" style="width:100%;background:var(--ling-mid)"></div></div><span class="rank-val">~19.5萬</span></div>
+        <div class="rank-bar"><span class="rank-label" style="color:var(--jian)">小建</span><div class="rank-track"><div class="rank-fill" style="width:81%;background:var(--jian-mid)"></div></div><span class="rank-val">~15.7萬</span></div>
+        <div class="rank-bar"><span class="rank-label" style="color:var(--qiao)">喬喬</span><div class="rank-track"><div class="rank-fill" style="width:67%;background:var(--qiao-mid)"></div></div><span class="rank-val">~13.5萬</span></div>
+      </div>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:var(--text3);margin-bottom:8px;font-weight:600">平均斗內紅鑽/場</div>
+        <div class="rank-bar"><span class="rank-label" style="color:var(--qiao)">喬喬</span><div class="rank-track"><div class="rank-fill" style="width:100%;background:var(--qiao-mid)"></div></div><span class="rank-val">~1.19萬</span></div>
+        <div class="rank-bar"><span class="rank-label" style="color:var(--ling)">虹伶</span><div class="rank-track"><div class="rank-fill" style="width:64%;background:var(--ling-mid)"></div></div><span class="rank-val">~7,735</span></div>
+        <div class="rank-bar"><span class="rank-label" style="color:var(--jian)">小建</span><div class="rank-track"><div class="rank-fill" style="width:22%;background:var(--jian-mid)"></div></div><span class="rank-val">~1,273</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 合作效益評估 ===== -->
+<div class="section" id="tab-verdict">
+  <div class="section-title">合作效益綜合評估</div>
+
+  <div class="chart-card full" style="margin-bottom:24px"><div class="chart-title">🔽 觀眾轉化漏斗：平台觀眾 → 進入遊戲直播間 → 實際共押</div><div class="chart-wrap tall"><canvas id="chart-vd-funnel"></canvas></div></div>
+
+  <div class="chart-grid">
+    <div class="chart-card"><div class="chart-title">📈 遊戲內 vs 平台觀眾規模關聯</div><div class="chart-wrap"><canvas id="chart-vd-corr"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">🎯 各場共押轉化率（%）趨勢</div><div class="chart-wrap"><canvas id="chart-vd-cvr2"></canvas></div></div>
+  </div>
+
+  <div class="summary-box green" style="margin-top:24px">
+    <h3>Q1：直播合作對遊戲是否有幫助？建議持續進行？</h3>
+    <p><strong>結論：有明確幫助，建議持續進行並優化。</strong></p>
+    <p>七場直播共玩合計帶動遊戲內直播間 <strong>5,725 人次進入</strong>、<strong>3,110 名不重複玩家實際共押</strong>，整場押注量合計超過 <strong>111萬紅鑽</strong>。共押轉化率穩定維持在 46–63%，代表進入直播間的玩家有超過半數會實際下注，這是明確可量化的遊戲活躍度驅動指標。</p>
+    <p>從趨勢來看，3 月下旬至 4 月初的場次整體互動數值（斗內人數、場外愛心人數）呈現上升走勢，特別是 4/3 小建（火燒赤壁）的斗內總人數達 921 人、4/4 喬喬兒（雷霆之錘2）的場外愛心人數 629 人，說明合作進行越多場次，遊戲內社群黏著度也在累積提升。</p>
+  </div>
+
+  <div class="summary-box blue2">
+    <h3>Q2：不同平台的觀眾是否有帶動遊戲效益？</h3>
+    <p><strong>有帶動效益，但各平台特性不同，對遊戲的貢獻面向也有所差異。</strong></p>
+    <p><strong>Twitch 觀眾（小建主力）→ 押注參與型：</strong>小建兩場 Twitch 平均觀眾約 700 人，遊戲內直播間人數約 665–712，比例接近 1:1，Twitch 觀眾直接轉換進入遊戲的比例相當高。雖然斗內紅鑽偏低，但押注量穩定（3/27: 13.3萬、4/3: 18萬 紅鑽），屬於<strong>「會玩但不太打賞」</strong>型觀眾結構。</p>
+    <p><strong>Facebook 觀眾（喬喬兒、虹伶）→ 互動打賞型：</strong>喬喬兒 FB 受眾打賞意願高，3/21 斗內紅鑽 20,154，是七場最高；3/28 場外愛心人數 279 人也顯著高於小建場次。虹伶的 3/23 場次押注量 235,915 紅鑽為全場最高，說明其 Facebook 受眾對特定機台（火燒赤壁）具有高度消費意願。</p>
+    <p><strong>YouTube 長尾效應（虹伶）：</strong>YouTube 影片合計觀看 1.48萬，有助於遊戲品牌在 YouTube 平台的曝光與搜尋觸及，屬於延遲性轉化的潛在管道。</p>
+  </div>
+
+  <div class="analysis-grid" style="margin-bottom:24px">
+    <div class="analysis-card">
+      <h3>各 KOC 合作效益定位</h3>
+      <div class="analysis-item"><div class="analysis-icon">🎮</div><div class="analysis-text"><strong style="color:var(--jian)">狂暴小建</strong>：Twitch 高觀眾基數直接帶動遊戲內參與，押注量穩定，屬於<strong>「遊戲活躍度驅動」</strong>型。建議維持 2 場/月，安排戰神呂布等新機台首發。</div></div>
+      <div class="analysis-item"><div class="analysis-icon">💰</div><div class="analysis-text"><strong style="color:var(--qiao)">喬喬兒QQe</strong>：FB 受眾打賞意願強（斗內紅鑽最高），場外互動活躍，屬於<strong>「社群打賞貢獻」</strong>型。建議優先選擇風暴賽特2等高人氣機台，加強直播前預熱貼文。</div></div>
+      <div class="analysis-item"><div class="analysis-icon">📈</div><div class="analysis-text"><strong style="color:var(--ling)">林虹伶</strong>：火燒赤壁場次押注量達全場最高（23.6萬紅鑽），屬於<strong>「機台契合型」</strong>。建議深化與高贏分機台配對，同時透過 YouTube 精華剪輯延伸觸及。</div></div>
+    </div>
+    <div class="analysis-card">
+      <h3>下階段優化建議</h3>
+      <div class="analysis-item"><div class="analysis-icon">🗓</div><div class="analysis-text"><strong>增加場次密度：</strong>本月平均每週不到 2 場，建議提升至每週 2–3 場，讓遊戲社群形成固定觀看習慣，累積直播間等級。</div></div>
+      <div class="analysis-item"><div class="analysis-icon">🎰</div><div class="analysis-text"><strong>機台匹配策略：</strong>虹伶主打火燒赤壁、小建主打風暴賽特2或新機首發、喬喬兒主打人氣 IP 機台的分工模式，可最大化各自受眾特性。</div></div>
+      <div class="analysis-item"><div class="analysis-icon">💡</div><div class="analysis-text"><strong>提升小建斗內貢獻：</strong>小建場次斗內紅鑽明顯低，建議在 Twitch 直播中加入打賞目標機制（如達到 X 紅鑽解鎖特定活動），引導高觀眾量轉化為斗內收益。</div></div>
+      <div class="analysis-item"><div class="analysis-icon">🔗</div><div class="analysis-text"><strong>跨平台導流強化：</strong>各場次直播前，FB / IG 限時動態統一強調「遊戲內共玩連結」，讓粉絲預先下載並登入遊戲，提高進場轉化率。</div></div>
+    </div>
+  </div>
+
+  <div class="insight-row">
+    <div class="insight-pill pill-green">✅ 建議持續合作：共押轉化率穩定 46–63%</div>
+    <div class="insight-pill pill-gold">💰 最高斗內：喬喬兒 3/21（20,154 紅鑽）</div>
+    <div class="insight-pill pill-red">🎰 最高押注：虹伶 3/23（23.6萬紅鑽）</div>
+    <div class="insight-pill pill-blue">🏟 最高遊戲人數：喬喬兒 4/4（988人）</div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<div class="footer">
+  <span>滿貫大亨｜行銷企劃部 <strong>內部文件</strong></span>
+  <span>資料區間：2026.03.21 – 2026.04.04｜製表日期：2026.04.09</span>
+</div>
+
+<script>
+Chart.defaults.font.family = "'Noto Sans TC', sans-serif";
+Chart.defaults.font.size = 14;
+Chart.defaults.color = '#4A4F6A';
+
+const QIAO='#D4860A', JIAN='#0A7FA8', LING='#C42B24', ACCENT='#3A56D4';
+const QIAO_M='#F5C842', JIAN_M='#3BBFCF', LING_M='#E8312A';
+
+// datalabels plugin inline
+const DataLabels = {
+  id:'dataLabels',
+  afterDatasetsDraw(chart){
+    const ctx=chart.ctx;
+    chart.data.datasets.forEach((ds,di)=>{
+      const meta=chart.getDatasetMeta(di);
+      if(meta.hidden||ds.type==='line') return;
+      meta.data.forEach((bar,i)=>{
+        const v=ds.data[i];
+        if(v==null||v===0) return;
+        const label = ds._labelFn ? ds._labelFn(v) : (v>=10000?(v/10000).toFixed(1)+'萬': v>=1000?(v/1000).toFixed(1)+'K': typeof v==='number'&&v%1!==0?v.toFixed(1):v.toLocaleString());
+        ctx.save();
+        ctx.font='bold 13px Noto Sans TC, sans-serif';
+        ctx.fillStyle='#1A1D2E';
+        ctx.textAlign='center';
+        ctx.textBaseline='bottom';
+        const pos=bar.getCenterPoint();
+        const top=bar.y-3;
+        ctx.fillText(label, pos.x, top);
+        ctx.restore();
+      });
+    });
+  }
+};
+Chart.register(DataLabels);
+
+// scatter no labels; line no labels handled in draw
+const noLabelDS = (ds) => { ds._noLabel=true; return ds; };
+
+function mkBar(id, labels, datasets, opts={}){
+  const el=document.getElementById(id); if(!el) return;
+  return new Chart(el,{
+    type:'bar',
+    data:{labels, datasets},
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      layout:{padding:{top:22}},
+      plugins:{
+        legend:{ labels:{color:'#4A4F6A',boxWidth:12,font:{size:14}} },
+        tooltip:{enabled:true}
+      },
+      scales:{
+        x:{grid:{color:'rgba(0,0,0,0.05)'}, ticks:{color:'#4A4F6A',font:{size:13}}},
+        y:{grid:{color:'rgba(0,0,0,0.05)'}, ticks:{color:'#4A4F6A',font:{size:13}}, ...( opts.yTicks||{} )},
+        ...(opts.y1 ? {y1:opts.y1} : {})
+      },
+      ...opts.extra
+    }
+  });
+}
+
+function mkLine(id, labels, datasets, opts={}){
+  const el=document.getElementById(id); if(!el) return;
+  // add datalabels for line points
+  const plugin = {
+    id:'lineLabels',
+    afterDatasetsDraw(chart){
+      const ctx=chart.ctx;
+      chart.data.datasets.forEach((ds,di)=>{
+        if(ds.type==='bar') return;
+        const meta=chart.getDatasetMeta(di);
+        meta.data.forEach((pt,i)=>{
+          const v=ds.data[i]; if(v==null) return;
+          const label=typeof v==='number'&&v%1!==0?v.toFixed(1)+'%':v.toLocaleString();
+          ctx.save();
+          ctx.font='bold 13px Noto Sans TC';
+          ctx.fillStyle='#1A1D2E';
+          ctx.textAlign='center';
+          ctx.textBaseline='bottom';
+          ctx.fillText(label, pt.x, pt.y-6);
+          ctx.restore();
+        });
+      });
+    }
+  };
+  return new Chart(el,{
+    type:'line', plugins:[plugin],
+    data:{labels, datasets},
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      layout:{padding:{top:24}},
+      plugins:{
+        legend:{ labels:{color:'#4A4F6A',boxWidth:12,font:{size:14}} },
+        tooltip:{enabled:true}
+      },
+      scales:{
+        x:{grid:{color:'rgba(0,0,0,0.05)'}, ticks:{color:'#4A4F6A',font:{size:13}}},
+        y:{grid:{color:'rgba(0,0,0,0.05)'}, ticks:{color:'#4A4F6A',font:{size:13}}, ...(opts.yTicks||{})}
+      }
+    }
+  });
+}
+
+const SCENE_LABELS = ['喬喬 3/21\n風暴賽特2','喬喬 3/28\n戰神呂布','喬喬 4/4\n雷霆之錘2','小建 3/27\n風暴賽特2','小建 4/3\n火燒赤壁','虹伶 3/22\n戰神呂布','虹伶 3/23\n火燒赤壁'];
+const SC = [QIAO_M,QIAO_M,QIAO_M,JIAN_M,JIAN_M,LING_M,LING_M];
+const IG_LABELS = ['3/21 喬喬\n風暴賽特2','3/22 虹伶\n戰神呂布','3/23 虹伶\n火燒赤壁','3/27 小建\n風暴賽特2','3/28 喬喬\n戰神呂布','4/3 小建\n火燒赤壁','4/4 喬喬\n雷霆之錘2'];
+const IC = [QIAO_M,LING_M,LING_M,JIAN_M,QIAO_M,JIAN_M,QIAO_M];
+
+// OVERVIEW
+mkBar('chart-live-views', SCENE_LABELS,
+  [{label:'Live 觀看次數', data:[1182,553,564,7302,8179,508,368], backgroundColor:SC, borderRadius:4}],
+  {yTicks:{callback:v=>v>=1000?(v/1000).toFixed(0)+'K':v}});
+
+mkBar('chart-peak', SCENE_LABELS,
+  [{label:'最高觀眾人數', data:[29,19,13,845,867,23,23], backgroundColor:SC, borderRadius:4}]);
+
+mkBar('chart-duration', SCENE_LABELS,
+  [{label:'直播時長（分鐘）', data:[92,98,111,299,343,92,87], backgroundColor:SC, borderRadius:4}],
+  {yTicks:{callback:v=>v+'m'}});
+
+// 喬喬
+mkBar('chart-qiao-twitch', ['3/21 風暴賽特2','3/28 戰神呂布','4/4 雷霆之錘2'],[
+  {label:'不重複觀眾', data:[884,421,417], backgroundColor:'rgba(212,134,10,0.85)', borderRadius:4},
+  {label:'Live 觀看', data:[1182,553,564], backgroundColor:'rgba(212,134,10,0.35)', borderRadius:4}
+]);
+
+mkBar('chart-qiao-fb-eng', ['3/21 風暴賽特2','3/28 戰神呂布 A','3/28 戰神呂布 B','4/4 雷霆之錘2'],[
+  {label:'心情數', data:[177,118,64,63], backgroundColor:'rgba(220,50,50,0.8)', borderRadius:3},
+  {label:'留言數', data:[110,12,31,45], backgroundColor:'rgba(58,86,212,0.7)', borderRadius:3},
+  {label:'儲存數', data:[10,2,0,0], backgroundColor:'rgba(22,163,74,0.7)', borderRadius:3}
+]);
+
+mkLine('chart-qiao-fb-reach', ['3/21 風暴賽特2','3/28 戰神呂布 A','3/28 戰神呂布 B','4/4 雷霆之錘2'],[
+  {label:'瀏覽次數', data:[6522,6012,5023,2991], borderColor:QIAO, backgroundColor:'rgba(212,134,10,0.1)', fill:true, tension:0.3, pointRadius:6, pointBackgroundColor:QIAO},
+  {label:'合格觀看次數', data:[921,567,333,287], borderColor:'rgba(212,134,10,0.5)', fill:false, tension:0.3, borderDash:[5,4], pointRadius:4}
+]);
+
+// 小建
+mkBar('chart-jian-compare', ['3/27 風暴賽特2','4/3 火燒赤壁'],[
+  {label:'全場平均觀眾', data:[712,697], backgroundColor:'rgba(10,127,168,0.85)', borderRadius:4},
+  {label:'晚8點後均觀眾', data:[762,655], backgroundColor:'rgba(10,127,168,0.5)', borderRadius:4},
+  {label:'最高觀眾', data:[845,867], backgroundColor:'rgba(10,127,168,0.25)', borderRadius:4}
+]);
+
+(function(){
+  const el=document.getElementById('chart-jian-radar'); if(!el) return;
+  new Chart(el,{type:'radar',data:{
+    labels:['平均觀眾','最高觀眾','不重複觀眾(百)','Live觀看(千)','直播時長(百分)'],
+    datasets:[
+      {label:'3/27 風暴賽特2', data:[71,85,60,73,60], borderColor:JIAN, backgroundColor:'rgba(10,127,168,0.15)', pointBackgroundColor:JIAN, pointRadius:5},
+      {label:'4/3 火燒赤壁', data:[70,87,64,82,69], borderColor:'rgba(10,127,168,0.5)', backgroundColor:'rgba(10,127,168,0.05)', borderDash:[4,3], pointBackgroundColor:JIAN, pointRadius:5}
+    ]
+  },options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{color:'#4A4F6A',font:{size:13}}}},
+    scales:{r:{grid:{color:'rgba(0,0,0,0.08)'},angleLines:{color:'rgba(0,0,0,0.08)'},pointLabels:{color:'#4A4F6A',font:{size:12}},ticks:{display:false}}}}});
+})();
+
+// 虹伶
+mkBar('chart-ling-twitch', ['3/22 戰神呂布','3/23 火燒赤壁'],[
+  {label:'不重複觀眾', data:[410,314], backgroundColor:'rgba(196,43,36,0.8)', borderRadius:4},
+  {label:'Live 觀看', data:[508,368], backgroundColor:'rgba(196,43,36,0.35)', borderRadius:4}
+]);
+
+mkBar('chart-ling-fb', ['3/22 戰神呂布','3/23 火燒赤壁'],[
+  {label:'瀏覽次數', data:[1925,2497], backgroundColor:'rgba(196,43,36,0.6)', borderRadius:4, yAxisID:'y'},
+  {label:'心情數', data:[64,113], backgroundColor:'rgba(255,160,50,0.85)', borderRadius:4, yAxisID:'y1'},
+  {label:'留言數', data:[45,19], backgroundColor:'rgba(58,86,212,0.7)', borderRadius:4, yAxisID:'y1'}
+],{y1:{grid:{display:false},position:'right',title:{display:true,text:'互動',color:'#7A7F9A',font:{size:12}}}});
+
+// COMPARE
+mkBar('chart-cmp-avg', SCENE_LABELS,
+  [{label:'平均觀眾人數', data:[20,9,8,712,697,14,14], backgroundColor:SC, borderRadius:4}]);
+
+mkBar('chart-cmp-unique', SCENE_LABELS,
+  [{label:'不重複觀眾數', data:[884,421,417,6027,6384,410,314], backgroundColor:SC, borderRadius:4}],
+  {yTicks:{callback:v=>v>=1000?(v/1000).toFixed(0)+'K':v}});
+
+mkBar('chart-cmp-live', SCENE_LABELS,
+  [{label:'Live 觀看次數', data:[1182,553,564,7302,8179,508,368], backgroundColor:SC, borderRadius:4}],
+  {yTicks:{callback:v=>v>=1000?(v/1000).toFixed(0)+'K':v}});
+
+// 遊戲內數據
+mkBar('chart-ig-participation', IG_LABELS,[
+  {label:'直播間總人數', data:[784,815,926,712,835,665,988], backgroundColor:IC.map(c=>c+'CC'), borderRadius:4},
+  {label:'共押不重複玩家', data:[397,458,531,423,427,419,455], backgroundColor:IC.map(c=>c+'66'), borderRadius:4}
+]);
+
+mkBar('chart-ig-betting', IG_LABELS,[
+  {label:'整場押注量', data:[143275,153084,235915,133219,130174,180407,132514], backgroundColor:'rgba(255,140,50,0.8)', borderRadius:4},
+  {label:'整場總贏分', data:[200013,225515,381780,161182,195435,200391,131547], backgroundColor:'rgba(220,50,50,0.5)', borderRadius:4}
+],{yTicks:{callback:v=>v>=10000?(v/10000).toFixed(0)+'萬':v>=1000?(v/1000).toFixed(0)+'K':v}});
+
+mkBar('chart-ig-engagement', IG_LABELS,[
+  {label:'斗內總人數', data:[549,600,767,633,783,921,1150], backgroundColor:'rgba(212,134,10,0.8)', borderRadius:4},
+  {label:'場外愛心人數', data:[159,188,233,202,279,492,629], backgroundColor:'rgba(130,80,220,0.7)', borderRadius:4}
+]);
+
+mkBar('chart-ig-cvr', IG_LABELS,[
+  {label:'共押轉化率(%)', data:[50.6,56.2,57.3,59.4,51.1,63.0,46.1],
+   _labelFn:v=>v.toFixed(1)+'%',
+   backgroundColor:IC.map(c=>c+'BB'), borderRadius:4}
+],{yTicks:{min:35,max:70,callback:v=>v+'%'},extra:{scales:{y:{min:35,max:70,ticks:{callback:v=>v+'%'}}}}});
+
+mkBar('chart-ig-peak-ratio', IG_LABELS,[
+  {label:'直播間總人數', data:[784,815,926,712,835,665,988], backgroundColor:IC.map(c=>c+'99'), borderRadius:4},
+  {label:'最高同上人數', data:[318,308,341,455,294,439,611], backgroundColor:IC.map(c=>c+'44'), borderRadius:4}
+]);
+
+// 效益評估
+mkBar('chart-vd-funnel', IG_LABELS,[
+  {label:'Twitch/FB 觀眾（外部平台）', data:[904,2335,2811,6027,6433,6384,3408], backgroundColor:'rgba(58,86,212,0.4)', borderRadius:4},
+  {label:'遊戲內直播間人數', data:[784,815,926,712,835,665,988], backgroundColor:IC.map(c=>c+'AA'), borderRadius:4},
+  {label:'實際共押人數', data:[397,458,531,423,427,419,455], backgroundColor:IC.map(c=>c+'55'), borderRadius:4}
+],{yTicks:{callback:v=>v>=1000?(v/1000).toFixed(1)+'K':v}});
+
+(function(){
+  const el=document.getElementById('chart-vd-corr'); if(!el) return;
+  new Chart(el,{type:'scatter',data:{datasets:[
+    {label:'喬喬兒', data:[{x:784,y:397},{x:835,y:427},{x:988,y:455}], backgroundColor:QIAO_M, pointRadius:9},
+    {label:'虹伶', data:[{x:815,y:458},{x:926,y:531}], backgroundColor:LING_M, pointRadius:9},
+    {label:'小建', data:[{x:712,y:423},{x:665,y:419}], backgroundColor:JIAN_M, pointRadius:9}
+  ]},options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{color:'#4A4F6A',font:{size:13}}},
+      tooltip:{callbacks:{label:ctx=>`直播間:${ctx.parsed.x} 共押:${ctx.parsed.y}`}}},
+    scales:{
+      x:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{color:'#4A4F6A',font:{size:12}},title:{display:true,text:'直播間總人數',color:'#7A7F9A',font:{size:12}}},
+      y:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{color:'#4A4F6A',font:{size:12}},title:{display:true,text:'共押不重複玩家',color:'#7A7F9A',font:{size:12}}}
+    }}});
+})();
+
+mkLine('chart-vd-cvr2',
+  ['3/21 喬喬','3/22 虹伶','3/23 虹伶','3/27 小建','3/28 喬喬','4/3 小建','4/4 喬喬'],
+  [{label:'共押轉化率(%)', data:[50.6,56.2,57.3,59.4,51.1,63.0,46.1],
+    borderColor:ACCENT, backgroundColor:'rgba(58,86,212,0.08)', fill:true,
+    tension:0.3, pointRadius:7, pointBackgroundColor:IC}],
+  {yTicks:{callback:v=>v+'%'}});
+
+function switchTab(name, btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
